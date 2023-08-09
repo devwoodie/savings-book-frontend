@@ -1,0 +1,49 @@
+.App{
+    position: relative;
+    width: 100vw; height: 100vh;
+    background-color: whitesmoke;
+}
+.container{
+    position: absolute;
+    left: 50%; top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* 로그인,회원가입 input */
+.login-tit{
+    font-family: "TheJamsil5Bold", sans-serif;
+    font-size: 24px;
+    color: #5b00ff;
+}
+.login-input-wrap{
+    margin-top: 50px;
+}
+.login-input-wrap .login-input-cont{
+    margin-bottom: 20px;
+}
+.login-input-wrap .login-input-cont:last-child{
+    margin: 0;
+}
+.login-input-wrap .login-input-cont label{
+    display: block;
+    text-align: left;
+    font-size: 12px;
+    margin-bottom: 3px;
+}
+.login-input-wrap .login-input-cont input{
+    width: 100%;
+    display: block;
+    font-size: 16px;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #c8c8c8;
+    transition: .3s;
+    outline: none;
+}
+.login-input-wrap .login-input-cont input::placeholder{
+    color: #c8c8c8;
+    font-size: 14px;
+}
+.login-input-wrap .login-input-cont input:focus{
+    border: 1px solid #5b00ff;
+}
