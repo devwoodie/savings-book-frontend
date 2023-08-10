@@ -11,9 +11,6 @@ const Login = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
 
-    const errorToast = () => toast.error("아이디 또는 비밀번호를 확인해주세요.");
-    const successToast = () => toast.success("로그인 성공");
-
     const handleLogin = (event) => {
         if(event.target.id === "username"){
             setUsername(event.target.value);
@@ -23,14 +20,18 @@ const Login = () => {
     }
 
     const handleSubmit = () => {
-        console.log(username)
+        // api call
         if(username === userInfo.username && password === userInfo.password){
-            successToast();
+            console.log({
+                "username: ": username,
+                "password: ": password
+            })
+            toast.success("로그인 성공");
             setTimeout(() => {
                 navigate("/home");
             }, 800);
         }else{
-            errorToast();
+            toast.error("아이디 또는 비밀번호를 확인해주세요.");
         }
     }
 
@@ -68,7 +69,7 @@ const Login = () => {
 
 const StyledLogin = styled.div`
   background-color: #fff;
-  width: 425px;
+  width: 375px;
   padding: 40px 30px;
   text-align: center;
   border-radius: 20px;
