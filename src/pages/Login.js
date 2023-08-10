@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import styled from "styled-components";
 import toast, { Toaster } from 'react-hot-toast';
-import {gray01, primary} from "../constants/color";
+import {blurColor, gray01, primary, whiteBg} from "../constants/color";
 import {useNavigate} from "react-router-dom";
 import {userInfo} from "../constants/dummy";
 
@@ -68,12 +68,12 @@ const Login = () => {
 }
 
 const StyledLogin = styled.div`
-  background-color: #fff;
+  background-color: ${whiteBg};
   width: 375px;
   padding: 40px 30px;
   text-align: center;
   border-radius: 20px;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0 15px ${blurColor};
   .forgot-text{
     text-align: left;
     font-size: 14px;
@@ -88,7 +88,7 @@ const StyledLogin = styled.div`
     border-radius: 8px;
     margin-top: 40px;
     padding: 14px;
-    color: #fff;
+    color: ${whiteBg};
     background-color: ${primary};
   }
   .signup-text{

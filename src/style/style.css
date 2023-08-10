@@ -13,7 +13,7 @@
 .login-tit{
     font-family: "TheJamsil5Bold", sans-serif;
     font-size: 24px;
-    color: #5b00ff;
+    color: #6a7ddf;
 }
 .login-input-wrap{
     margin-top: 50px;
@@ -45,5 +45,5 @@
     font-size: 14px;
 }
 .login-input-wrap .login-input-cont input:focus{
-    border: 1px solid #5b00ff;
+    border: 1px solid #6a7ddf;
 }
