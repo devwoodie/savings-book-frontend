@@ -86,7 +86,7 @@ const StyledWrapper = styled.div`
   box-shadow: 0 0 15px ${blurColor};
   h2 {
     font-size: 18px;
-    padding: 0 16px;
+    padding: 0 20px;
   }
   .click-date {
     display: flex;
@@ -95,7 +95,7 @@ const StyledWrapper = styled.div`
     margin-top: 12px;
     font-size: 16px;
     background-color: ${primary};
-    padding: 6px 16px;
+    padding: 6px 20px;
     color: ${whiteBg};
     .add-btn{
       cursor: pointer;
@@ -111,7 +111,7 @@ const StyledWrapper = styled.div`
     height: 270px;
     margin-top: 5px;
     overflow-y: scroll;
-    padding: 0 16px;
+    padding: 0 20px;
     &::-webkit-scrollbar {
       width: 8px;
     }

@@ -6,6 +6,7 @@ import Goal from "../components/Goal";
 import DetailDate from "../components/DetailDate";
 import PieChart from "../components/PieChart";
 import HistoryAll from "../components/HistoryAll";
+import Badge from "../components/Badge";
 
 const Main = () => {
 
@@ -26,6 +27,7 @@ const Main = () => {
                     <div className="inner-flex-right">
                         <PieChart />
                         <HistoryAll />
+                        <Badge />
                     </div>
                 </div>
             </div>
