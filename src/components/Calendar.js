@@ -18,6 +18,7 @@ const Calendar = ({setClickDate}) => {
 
     const handleDateClick = (arg) => {
         setClickDate(arg.dateStr);
+        console.log(arg)
     }
 
     return(
@@ -37,7 +38,7 @@ const StyledWrapper = styled.div`
   background-color: ${whiteBg};
   padding: 20px;
   border-radius: 16px;
-  width: 600px; height: 500px;
+  width: 100%; height: 500px;
   box-shadow: 0 0 15px ${blurColor};
   > div{
     width: 100%; height: 100%;

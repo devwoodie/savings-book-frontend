@@ -21,7 +21,7 @@ const StyledHeader = styled.div`
   justify-content: space-between;
   align-items: center;
   //border: 1px solid ${blackBg};
-  background-color: ${primary};
+  background-color: ${whiteBg};
   padding: 20px;
   border-radius: 16px;
   box-shadow: 0 0 15px ${blurColor};
@@ -29,7 +29,7 @@ const StyledHeader = styled.div`
     font-size: 24px;
     //font-family: "TheJamsil5Bold", sans-serif;
     letter-spacing: -1px;
-    color: ${whiteBg};
+    color: ${primary};
   }
   .user-info-wrap{
     font-size: 18px;
@@ -37,7 +37,7 @@ const StyledHeader = styled.div`
     align-items: center;
     justify-content: flex-end;
     font-family: "TheJamsil5Bold", sans-serif;
-    color: ${whiteBg};
+    color: ${primary};
     .user-icon{
       font-size: 28px;
       margin-right: 8px;

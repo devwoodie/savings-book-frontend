@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import styled from "styled-components";
 import Header from "../components/Header";
 import Calendar from "../components/Calendar";
+import Goal from "../components/Goal";
 
 const Main = () => {
 
@@ -11,8 +12,8 @@ const Main = () => {
         <StyledWrapper>
             <Header />
             <div className="cont">
+                <Goal />
                 <Calendar setClickDate={setClickDate} />
-                <p>{clickDate}</p>
             </div>
         </StyledWrapper>
     )
@@ -23,6 +24,7 @@ const StyledWrapper = styled.div`
   padding: 20px;
   .cont{
     margin: 16px 0;
+    width: 600px;
   }
 `;
 
