@@ -87,6 +87,7 @@ const StyledWrapper = styled.div`
     i{
       font-style: normal;
       font-size: 20px;
+      font-family: "TheJamsil5Bold", sans-serif;
     }
     #goalMoney{
       font-size: 18px;

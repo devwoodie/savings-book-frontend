@@ -62,3 +62,12 @@ export const detailDate = {
     ]
 }
 
+export const historyAll = {
+    data: {
+        year: "2023",
+        month: "08"
+    },
+    in: 45000000,
+    out: 2500000
+}
+

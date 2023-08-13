@@ -61,7 +61,7 @@ const DetailDate = ({clickDate}) => {
                                 </div>
                                 <div className="detail-bottom">
                                     <p className="content">{item?.content}</p>
-                                    <span className="money">{item?.money.toString().replace(comma, ",")} 원</span>
+                                    <span className="money">{item?.money.toString().replace(comma, ",")} <i>원</i></span>
                                 </div>
                                 <div className="detail-btn-wrap">
                                     <button type="button" className="fixed-btn">수정</button>
@@ -162,7 +162,8 @@ const StyledWrapper = styled.div`
           font-size: 16px;
         }
         .money {
-          font-size: 18px;
+          font-size: 16px;
+          font-family: "TheJamsil5Bold", sans-serif;
         }
       }
       .detail-btn-wrap {

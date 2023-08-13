@@ -5,6 +5,7 @@ import Calendar from "../components/Calendar";
 import Goal from "../components/Goal";
 import DetailDate from "../components/DetailDate";
 import PieChart from "../components/PieChart";
+import HistoryAll from "../components/HistoryAll";
 
 const Main = () => {
 
@@ -24,6 +25,7 @@ const Main = () => {
                     </div>
                     <div className="inner-flex-right">
                         <PieChart />
+                        <HistoryAll />
                     </div>
                 </div>
             </div>
