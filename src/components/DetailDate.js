@@ -138,8 +138,8 @@ const StyledWrapper = styled.div`
           border-radius: 4px;
           margin-right: 4px;
         }
-        i.in {background-color: ${expend}}
-        i.out {background-color: ${income}}
+        i.in {background-color: ${income}}
+        i.out {background-color: ${expend}}
         .type {
           color: ${whiteBg};
           font-size: 12px;

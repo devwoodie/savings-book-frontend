@@ -11,6 +11,8 @@ const Goal = () => {
     const [goalAmount, setGoalAmount] = useState("");
     const [isFixed, setIsFixed] = useState(false);
     let resultGoal = goalAmount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    let date = new Date();
+    let month = date.getMonth() + 1;
 
     useEffect(() => {
         setGoalAmount(goal.goal_money);
@@ -40,7 +42,7 @@ const Goal = () => {
 
     return(
         <StyledWrapper>
-            <h2>이번 달 목표 지출 금액</h2>
+            <h2>{month}월 목표 지출 금액</h2>
             <p>
                 {!isFixed?
                     (!goalEmpty ?

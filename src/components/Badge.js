@@ -36,7 +36,6 @@ const StyledWrapper = styled.div`
   padding: 20px;
   border-radius: 16px;
   width: 100%; height: 128px;
-  margin: 16px 0;
   box-shadow: 0 0 15px ${blurColor};
   position: relative;
   overflow: hidden;

@@ -7,6 +7,7 @@ import DetailDate from "../components/DetailDate";
 import PieChart from "../components/PieChart";
 import HistoryAll from "../components/HistoryAll";
 import Badge from "../components/Badge";
+import LineChart from "../components/LineChart";
 
 const Main = () => {
 
@@ -23,6 +24,7 @@ const Main = () => {
                 <div className="cont-right">
                     <div className="inner-flex-left">
                         <DetailDate clickDate={clickDate} />
+                        <LineChart />
                     </div>
                     <div className="inner-flex-right">
                         <PieChart />
