@@ -3,6 +3,7 @@ import styled from "styled-components";
 import Header from "../components/Header";
 import Calendar from "../components/Calendar";
 import Goal from "../components/Goal";
+import DetailDate from "../components/DetailDate";
 
 const Main = () => {
 
@@ -12,8 +13,13 @@ const Main = () => {
         <StyledWrapper>
             <Header />
             <div className="cont">
-                <Goal />
-                <Calendar setClickDate={setClickDate} />
+                <div className="cont-left">
+                    <Goal />
+                    <Calendar setClickDate={setClickDate} />
+                </div>
+                <div className="cont-right">
+                    <DetailDate clickDate={clickDate} />
+                </div>
             </div>
         </StyledWrapper>
     )
@@ -23,8 +29,17 @@ const StyledWrapper = styled.div`
   width: 1512px; height: 743px;
   padding: 20px;
   .cont{
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+  }
+  .cont-left{
     margin: 16px 0;
     width: 600px;
+  }
+  .cont-right{
+    margin: 16px 0;
+    width: 850px; height: 100%;
   }
 `;
 

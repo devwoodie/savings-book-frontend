@@ -37,7 +37,7 @@ const StyledHeader = styled.div`
     align-items: center;
     justify-content: flex-end;
     font-family: "TheJamsil5Bold", sans-serif;
-    color: ${primary};
+    color: ${blackBg};
     .user-icon{
       font-size: 28px;
       margin-right: 8px;

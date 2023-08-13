@@ -40,7 +40,7 @@ const Goal = () => {
 
     return(
         <StyledWrapper>
-            <span>이번 달 목표 지출 금액</span>
+            <h2>이번 달 목표 지출 금액</h2>
             <p>
                 {!isFixed?
                     (!goalEmpty ?
@@ -79,8 +79,9 @@ const StyledWrapper = styled.div`
   font-size: 18px;
   position: relative;
   box-shadow: 0 0 15px ${blurColor};
-  span{
+  h2{
     padding: 4px 0;
+    font-size: inherit;
   }
   p{
     i{

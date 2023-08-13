@@ -53,6 +53,9 @@ button{
     border: none;
     font-size: inherit;
 }
+i{
+    font-style: normal;
+}
 *{
     box-sizing: border-box;
     font-family: "HakgyoansimWoojuR", sans-serif;
