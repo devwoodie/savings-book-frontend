@@ -81,8 +81,8 @@ const StyledWrapper = styled.div`
   background-color: ${whiteBg};
   padding: 20px 0;
   border-radius: 16px;
-  width: 55%;
-  height: 350px;
+  width: 100%;
+  height: 370px;
   box-shadow: 0 0 15px ${blurColor};
   h2 {
     font-size: 18px;
@@ -108,7 +108,7 @@ const StyledWrapper = styled.div`
   }
   .detail-list {
     width: 100%;
-    height: 250px;
+    height: 270px;
     margin-top: 5px;
     overflow-y: scroll;
     padding: 0 16px;
