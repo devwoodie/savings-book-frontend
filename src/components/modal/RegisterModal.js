@@ -15,6 +15,10 @@ import {
 import toast from "react-hot-toast";
 
 const RegisterModal = ({
+                           editedItem,
+                           setEditedItem,
+                           edit,
+                           setEdit,
                            clickDate,
                            setIsRegister
 }) => {
@@ -53,7 +57,8 @@ const RegisterModal = ({
             onlyNum.test(money)
         ){
             // api call
-            toast.success("등록이 완료되었습니다.");
+            toast.success(`${edit ? "수정" : "등록"}이 완료되었습니다.`);
+            setEdit(false);
             setIsRegister(false);
         }else{
             toast.error("내용을 확인해주세요.");
@@ -63,7 +68,7 @@ const RegisterModal = ({
     return(
         <StyledModal>
             <div className="modal-inner">
-                <h3>{year}년 {month}월 {day}일 수입/지출 내역 기록하기</h3>
+                <h3>{year}년 {month}월 {day}일 수입/지출 내역 {edit ? "수정" : "기록"}하기</h3>
                 <div className="register-wrap">
                     <div className="content">
                         <input
@@ -133,7 +138,7 @@ const RegisterModal = ({
                             id="content"
                             placeholder="20자 이내로 작성해주세요."
                             maxLength={20}
-                            value={content}
+                            value={edit ? editedItem.content : content}
                             onChange={handleInput}
                         />
                     </div>
@@ -143,14 +148,17 @@ const RegisterModal = ({
                             type="text"
                             id="money"
                             placeholder="숫자만 입력해주세요."
-                            value={money}
+                            value={edit ? editedItem.money : money}
                             onChange={handleInput}
                         />
                     </div>
                 </div>
                 <div className="modal-btn-wrap">
-                    <button type="button" className="register-btn" onClick={handleSubmit}>등록</button>
-                    <button type="button" className="cancel-btn" onClick={() => setIsRegister(false)}>취소</button>
+                    <button type="button" className="register-btn" onClick={handleSubmit}>{edit ? "수정" : "등록"}</button>
+                    <button type="button" className="cancel-btn" onClick={() => {
+                        setIsRegister(false);
+                        setEdit(false);
+                    }}>취소</button>
                 </div>
             </div>
         </StyledModal>
@@ -165,7 +173,6 @@ const StyledModal = styled.div`
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
-  box-shadow: 10px 10px 10px #000;
   z-index: 9;
   .modal-inner{
     z-index: 9;
@@ -177,7 +184,6 @@ const StyledModal = styled.div`
     text-align: center;
     padding: 30px 20px;
     border-radius: 20px;
-    //box-shadow: 10px 10px 10px #000;
     h3{
       font-size: 18px;
       margin-bottom: 25px;

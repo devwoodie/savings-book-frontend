@@ -15,14 +15,27 @@ import {
 } from "../constants/color";
 import {detailDate} from "../constants/dummy";
 import RegisterModal from "./modal/RegisterModal";
+import ConfirmModal from "./modal/ConfirmModal";
+import toast from "react-hot-toast";
 
 const DetailDate = ({clickDate}) => {
 
     const comma = /\B(?=(\d{3})+(?!\d))/g;
     const [click, setClick] = useState(false);
     const [thisData, setThisData] = useState();
+    const [updateItemId, setUpdateItemId] = useState(null);
+    const [deleteItemId, setDeleteItemId] = useState(null);
+    const [edit, setEdit] = useState(false);
+    const [editedItem, setEditedItem] = useState({
+        amount_nm: "",
+        content: "",
+        category: "",
+        type: "",
+        money: ""
+    });
     // modal
     const [isRegister, setIsRegister] = useState(false);
+    const [isDelete, setIsDelete] = useState(false);
 
     const dateArray = clickDate?.split('-');
     const year = dateArray[0];
@@ -46,6 +59,25 @@ const DetailDate = ({clickDate}) => {
         }
     }
 
+    // 내역 수정 버튼
+    const handleUpdateBtn = (item) => {
+        setUpdateItemId(item);
+        setEditedItem(item);
+        setEdit(true);
+        setIsRegister(true);
+    }
+    // 내역 삭제 버튼
+    const handleDeleteBtn = (itemId) => {
+        setIsDelete(true);
+        setDeleteItemId(itemId);
+    }
+    // 삭제 실행
+    const handleDelete = () => {
+        const updatedData = thisData.filter((dataItem) => dataItem.amount_nm !== deleteItemId);
+        setThisData(updatedData);
+        setIsDelete(false);
+        toast.success("삭제되었습니다.");
+    };
     return(
         <StyledWrapper>
             <h2>상세 내역</h2>
@@ -75,15 +107,25 @@ const DetailDate = ({clickDate}) => {
                                     <span className="money">{item?.money.toString().replace(comma, ",")} <i>원</i></span>
                                 </div>
                                 <div className="detail-btn-wrap">
-                                    <button type="button" className="fixed-btn">수정</button>
-                                    <button type="button" className="del-btn">삭제</button>
+                                    <button type="button" className="fixed-btn" onClick={() => handleUpdateBtn(item)}>수정</button>
+                                    <button type="button" className="del-btn" onClick={() => handleDeleteBtn(item.amount_nm)}>삭제</button>
                                 </div>
                             </li>
                         ))}
                     </ul>
                 </> : <p className="empty-text">캘린더에 날짜를 선택해주세요.</p>
             }
-            {isRegister && <RegisterModal clickDate={clickDate} setIsRegister={setIsRegister} />}
+            {isRegister &&
+                <RegisterModal
+                    editedItem={editedItem}
+                    setEditedItem={setEditedItem}
+                    edit={edit}
+                    setEdit={setEdit}
+                    clickDate={clickDate}
+                    setIsRegister={setIsRegister}
+                />
+            }
+            {isDelete && <ConfirmModal text={"이 내역을 삭제하시겠습니까?"} confirm={handleDelete} setIsDelete={setIsDelete} />}
         </StyledWrapper>
     )
 }
