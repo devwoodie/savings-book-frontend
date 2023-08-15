@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import styled from "styled-components";
 import {blackBg, blurColor, expend, income, whiteBg} from "../constants/color";
 import FullCalendar from '@fullcalendar/react'
@@ -18,6 +18,7 @@ const Calendar = ({setClickDate}) => {
 
     const handleDateClick = (arg) => {
         setClickDate(arg.dateStr);
+        // arg.dayEl.style.backgroundColor = "#f00";
         console.log(arg)
     }
 

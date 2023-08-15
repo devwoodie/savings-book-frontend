@@ -19,6 +19,9 @@ const LineChart = () => {
                 type: 'area',
                 toolbar: { show: false },
                 background: "transparent",
+                zoom: {
+                    enabled: false
+                }
             },
             legend: {
                 show: false,
@@ -27,7 +30,8 @@ const LineChart = () => {
                 enabled: false
             },
             stroke: {
-                curve: 'smooth'
+                curve: 'smooth',
+                width: 2.5
             },
             tooltip: {
                 enabled: true,
@@ -48,7 +52,7 @@ const LineChart = () => {
                 },
                 categories: ["1일","2일","3일","4일","5일","6일","7일","8일"],
             },
-            colors:[`${eat}`,`${cafe}`],
+            colors:[`${cafe}`, `${eat}`],
         },
     }
 
