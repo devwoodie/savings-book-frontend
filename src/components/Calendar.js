@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import {blackBg, blurColor, expend, income, primary, whiteBg} from "../constants/color";
+import {blackBg, blurColor, expend, income, whiteBg} from "../constants/color";
 import FullCalendar from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import interactionPlugin from "@fullcalendar/interaction"
@@ -24,7 +24,6 @@ const Calendar = ({setClickDate}) => {
     return(
         <StyledWrapper>
             <FullCalendar
-                defaultView="dayGridMonth"
                 plugins={[ dayGridPlugin, interactionPlugin ]}
                 events={event}
                 eventClassNames="event-tooltip"

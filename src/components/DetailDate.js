@@ -14,12 +14,15 @@ import {
     whiteBg
 } from "../constants/color";
 import {detailDate} from "../constants/dummy";
+import RegisterModal from "./modal/RegisterModal";
 
 const DetailDate = ({clickDate}) => {
 
     const comma = /\B(?=(\d{3})+(?!\d))/g;
     const [click, setClick] = useState(false);
     const [thisData, setThisData] = useState();
+    // modal
+    const [isRegister, setIsRegister] = useState(false);
 
     const dateArray = clickDate?.split('-');
     const year = dateArray[0];
@@ -35,6 +38,14 @@ const DetailDate = ({clickDate}) => {
         }
     }, [clickDate]);
 
+    const handleRegisterBtn = () => {
+        if(clickDate !== ""){
+            setIsRegister(true);
+        }else{
+            setIsRegister(false);
+        }
+    }
+
     return(
         <StyledWrapper>
             <h2>상세 내역</h2>
@@ -42,7 +53,7 @@ const DetailDate = ({clickDate}) => {
                 <>
                     <span className="click-date">
                         <span>{clickDate && `${year}년 ${month}월 ${day}일`}</span>
-                        <button type="button" className="add-btn">추가</button>
+                        <button type="button" className="add-btn" onClick={handleRegisterBtn}>추가</button>
                     </span>
                     <ul className="detail-list">
                         {thisData && thisData?.map((item, key) => (
@@ -72,7 +83,7 @@ const DetailDate = ({clickDate}) => {
                     </ul>
                 </> : <p className="empty-text">캘린더에 날짜를 선택해주세요.</p>
             }
-
+            {isRegister && <RegisterModal clickDate={clickDate} setIsRegister={setIsRegister} />}
         </StyledWrapper>
     )
 }

@@ -16,10 +16,10 @@ const HistoryAll = () => {
 
     return(
         <StyledWrapper>
-            <div class="history-wrap">
+            <div className="history-wrap">
                 <p>이번 달 총 수입</p><span>{historyIn.toString().replace(comma, ",")} <i>원</i></span>
             </div>
-            <div class="history-wrap">
+            <div className="history-wrap">
                 <p>이번 달 총 지출</p><span>{historyOut.toString().replace(comma, ",")} <i>원</i></span>
             </div>
         </StyledWrapper>

@@ -13,6 +13,7 @@ const Main = () => {
 
     const [clickDate, setClickDate] = useState("");
 
+    console.log(clickDate)
     return(
         <StyledWrapper>
             <Header />

@@ -53,7 +53,7 @@ export const detailDate = {
             money: "4500"
         },
         {
-            amount_nm: "10027",
+            amount_nm: "10028",
             content: "월급",
             category: "기타",
             type: "in",

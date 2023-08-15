@@ -7,7 +7,7 @@ import {BsTrophyFill} from "react-icons/bs";
 const Badge = () => {
     return(
         <StyledWrapper>
-            <p class="info-text">뱃지는 아직 준비중이에요.</p>
+            <p className="info-text">뱃지는 아직 준비중이에요.</p>
             <h2>목표 달성 뱃지</h2>
             <ul className="badge-list">
                 <li>
