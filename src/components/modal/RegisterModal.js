@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import styled from "styled-components";
 import {
     cafe,
@@ -16,7 +16,6 @@ import toast from "react-hot-toast";
 
 const RegisterModal = ({
                            editedItem,
-                           setEditedItem,
                            edit,
                            setEdit,
                            clickDate,
@@ -32,6 +31,15 @@ const RegisterModal = ({
     const [category, setCategory] = useState("");
     const [content, setContent] = useState("");
     const [money, setMoney] = useState("");
+
+    useEffect(() => {
+        if (edit) {
+            setType(editedItem.type);
+            setCategory(editedItem.category);
+            setContent(editedItem.content);
+            setMoney(editedItem.money);
+        }
+    }, [edit, editedItem]);
 
     const handleInput = (event) => {
         if(event.target.name === "type"){
@@ -77,6 +85,7 @@ const RegisterModal = ({
                             name="type"
                             value="in"
                             onChange={handleInput}
+                            checked={type === "in"}
                         />
                         <label htmlFor="radioIn" className="w50 income">수입</label>
                         <input
@@ -85,6 +94,7 @@ const RegisterModal = ({
                             name="type"
                             value="out"
                             onChange={handleInput}
+                            checked={type === "out"}
                         />
                         <label htmlFor="radioOUt" className="w50 expend">지출</label>
                     </div>
@@ -96,6 +106,7 @@ const RegisterModal = ({
                             name="category"
                             value="eat"
                             onChange={handleInput}
+                            checked={category === "외식" || category === "eat"}
                         />
                         <label htmlFor="eat" className="eat">외식</label>
                         <input
@@ -104,6 +115,7 @@ const RegisterModal = ({
                             name="category"
                             value="cafe"
                             onChange={handleInput}
+                            checked={category === "카페" || category === "cafe"}
                         />
                         <label htmlFor="cafe" className="cafe">카페</label>
                         <input
@@ -112,6 +124,7 @@ const RegisterModal = ({
                             name="category"
                             value="pleasure"
                             onChange={handleInput}
+                            checked={category === "유흥" || category === "pleasure"}
                         />
                         <label htmlFor="pleasure" className="pleasure">유흥</label>
                         <input
@@ -120,6 +133,7 @@ const RegisterModal = ({
                             name="category"
                             value="shopping"
                             onChange={handleInput}
+                            checked={category === "쇼핑" || category === "shopping"}
                         />
                         <label htmlFor="shopping" className="shopping">쇼핑</label>
                         <input
@@ -128,6 +142,7 @@ const RegisterModal = ({
                             name="category"
                             value="etc"
                             onChange={handleInput}
+                            checked={category === "기타" || category === "etc"}
                         />
                         <label htmlFor="etc" className="etc">기타</label>
                     </div>
@@ -138,7 +153,7 @@ const RegisterModal = ({
                             id="content"
                             placeholder="20자 이내로 작성해주세요."
                             maxLength={20}
-                            value={edit ? editedItem.content : content}
+                            value={content}
                             onChange={handleInput}
                         />
                     </div>
@@ -148,7 +163,7 @@ const RegisterModal = ({
                             type="text"
                             id="money"
                             placeholder="숫자만 입력해주세요."
-                            value={edit ? editedItem.money : money}
+                            value={money}
                             onChange={handleInput}
                         />
                     </div>
@@ -170,8 +185,8 @@ const StyledModal = styled.div`
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 9;
   .modal-inner{

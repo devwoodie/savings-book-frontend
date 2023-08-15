@@ -118,7 +118,6 @@ const DetailDate = ({clickDate}) => {
             {isRegister &&
                 <RegisterModal
                     editedItem={editedItem}
-                    setEditedItem={setEditedItem}
                     edit={edit}
                     setEdit={setEdit}
                     clickDate={clickDate}
