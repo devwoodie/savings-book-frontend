@@ -5,6 +5,7 @@ import {blurColor, gray01, primary, whiteBg} from "../constants/color";
 import {useNavigate} from "react-router-dom";
 import {userInfo} from "../constants/dummy";
 import axios from "axios";
+import {loginApi} from "../apis/LoginApis";
 
 const Login = () => {
 
@@ -22,25 +23,20 @@ const Login = () => {
 
     const handleSubmit = async () => {
         // api call
-        // try{
-        //     const res = axios.get(`https://port-0-savings-book-backend-eu1k2llladze0x.sel3.cloudtype.app/api/user/login`);
-        //     console.log(res)
-        // }catch (err){
-        //     console.log(err)
-        // }
+        await loginApi(username, password, navigate);
 
-        if(username === userInfo.username && password === userInfo.password){
-            console.log({
-                "username: ": username,
-                "password: ": password
-            })
-            toast.success("로그인 성공");
-            setTimeout(() => {
-                navigate("/home");
-            }, 800);
-        }else{
-            toast.error("아이디 또는 비밀번호를 확인해주세요.");
-        }
+        // if(username === userInfo.username && password === userInfo.password){
+        //     console.log({
+        //         "username: ": username,
+        //         "password: ": password
+        //     })
+        //     toast.success("로그인 성공");
+        //     setTimeout(() => {
+        //         navigate("/home");
+        //     }, 500);
+        // }else{
+        //     toast.error("아이디 또는 비밀번호를 확인해주세요.");
+        // }
     }
 
     return(

@@ -3,6 +3,7 @@ import styled from "styled-components";
 import toast, { Toaster } from 'react-hot-toast';
 import {blurColor, gray01, gray02, primary, whiteBg} from "../constants/color";
 import {useNavigate} from "react-router-dom";
+import {signupApi} from "../apis/LoginApis";
 
 const Signup = () => {
 
@@ -37,7 +38,7 @@ const Signup = () => {
         }
     }
 
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
         if(!engNum.test(username)){
             toast.error("아이디는 영어, 숫자만 입력가능합니다.");
             userRef.current.focus();
@@ -45,9 +46,7 @@ const Signup = () => {
             toast.error("닉네임은 한글, 영어, 숫자만 입력가능합니다.");
             nickRef.current.focus();
         }else{
-            // api call
-            toast.success("회원가입 완료");
-            navigate("/");
+            await signupApi(username, nickname, password, navigate);
         }
     }
 
