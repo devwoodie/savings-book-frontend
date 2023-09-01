@@ -6,6 +6,7 @@ import {useNavigate} from "react-router-dom";
 import {userInfo} from "../constants/dummy";
 import axios from "axios";
 import {loginApi} from "../apis/LoginApis";
+import {authFetch} from "../apis/axios";
 
 const Login = () => {
 
@@ -21,22 +22,25 @@ const Login = () => {
         }
     }
 
-    const handleSubmit = async () => {
-        // api call
-        await loginApi(username, password, navigate);
-
-        // if(username === userInfo.username && password === userInfo.password){
-        //     console.log({
-        //         "username: ": username,
-        //         "password: ": password
-        //     })
-        //     toast.success("로그인 성공");
-        //     setTimeout(() => {
-        //         navigate("/home");
-        //     }, 500);
-        // }else{
-        //     toast.error("아이디 또는 비밀번호를 확인해주세요.");
-        // }
+    const loginApi = async () => {
+        const data = {
+            username: username,
+            password: password
+        }
+        try{
+            const res = await authFetch.post(`/api/user/login`, data)
+            console.log(res);
+            if(res?.result === "Y"){
+                toast.success("로그인 성공");
+                setTimeout(() => {
+                    navigate("/home");
+                }, 500);
+            }else{
+                toast.error("아이디 또는 비밀번호를 확인해주세요.");
+            }
+        }catch (err){
+            console.log(err);
+        }
     }
 
     return(
@@ -64,7 +68,7 @@ const Login = () => {
                     />
                     <p className="forgot-text">Forgot Password?</p>
                 </div>
-                <button className="login-btn" type="button" onClick={handleSubmit}>Login</button>
+                <button className="login-btn" type="button" onClick={() => loginApi()}>Login</button>
             </form>
             <p className="signup-text">Not a Member?&nbsp;&nbsp;<i onClick={() => navigate("/signup")}>Signup Now</i></p>
         </StyledLogin>

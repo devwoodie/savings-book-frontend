@@ -7,13 +7,13 @@ import interactionPlugin from "@fullcalendar/interaction"
 
 const Calendar = ({setClickDate}) => {
     const event = [
-        { title: '25,000', date: '2023-08-05', color: income },
-        { title: '39,000', date: '2023-08-05', color: expend },
-        { title: '65,000', date: '2023-08-15', color: expend },
-        { title: '4,500,000', date: '2023-08-25', color: income },
-        { title: '105,000', date: '2023-08-16', color: expend },
-        { title: '32,000', date: '2023-08-01', color: income },
-        { title: '15,000', date: '2023-08-10', color: expend }
+        { title: '25,000', date: '2023-09-05', color: income },
+        { title: '39,000', date: '2023-09-05', color: expend },
+        { title: '65,000', date: '2023-09-15', color: expend },
+        { title: '4,500,000', date: '2023-09-25', color: income },
+        { title: '105,000', date: '2023-09-16', color: expend },
+        { title: '32,000', date: '2023-09-01', color: income },
+        { title: '15,000', date: '2023-09-10', color: expend }
     ]
 
     const handleDateClick = (arg) => {

@@ -3,7 +3,7 @@ import styled from "styled-components";
 import toast, { Toaster } from 'react-hot-toast';
 import {blurColor, gray01, gray02, primary, whiteBg} from "../constants/color";
 import {useNavigate} from "react-router-dom";
-import {signupApi} from "../apis/LoginApis";
+import {authFetch} from "../apis/axios";
 
 const Signup = () => {
 
@@ -46,7 +46,25 @@ const Signup = () => {
             toast.error("닉네임은 한글, 영어, 숫자만 입력가능합니다.");
             nickRef.current.focus();
         }else{
-            await signupApi(username, nickname, password, navigate);
+            await signupApi();
+        }
+    }
+
+    const signupApi = async () => {
+        const data = {
+            username: username,
+            password: password,
+            nickname: nickname
+        }
+        try{
+            const res = await authFetch.post(`/api/user/signup`, data);
+            console.log(res)
+            if(res?.result === "Y"){
+                toast.success("회원가입 완료");
+                navigate("/");
+            }
+        }catch (err){
+            console.log(err);
         }
     }
 
