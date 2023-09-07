@@ -54,7 +54,7 @@ const Signup = () => {
         const data = {
             username: username,
             password: password,
-            nickname: nickname
+            nick_name: nickname
         }
         try{
             const res = await authFetch.post(`/api/user/signup`, data);
