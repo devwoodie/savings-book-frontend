@@ -3,9 +3,6 @@ import styled from "styled-components";
 import toast, { Toaster } from 'react-hot-toast';
 import {blurColor, gray01, primary, whiteBg} from "../constants/color";
 import {useNavigate} from "react-router-dom";
-import {userInfo} from "../constants/dummy";
-import axios from "axios";
-import {loginApi} from "../apis/LoginApis";
 import {authFetch} from "../apis/axios";
 
 const Login = () => {
@@ -30,7 +27,7 @@ const Login = () => {
         try{
             const res = await authFetch.post(`/api/user/login`, data)
             console.log(res);
-            if(res?.result === "Y"){
+            if(res?.data.result === "Y"){
                 toast.success("로그인 성공");
                 setTimeout(() => {
                     navigate("/home");

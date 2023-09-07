@@ -8,7 +8,7 @@ authFetch.interceptors.request.use(
     (config) => {
         config.headers["Content-Type"] = "application/json"
         config.headers["Accept"] = "application/json";
-        config.headers['Origin'] = "*";
+        // config.headers['Origin'] = "*";
         return config;
     },
     (error) => {

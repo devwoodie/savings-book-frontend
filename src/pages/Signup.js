@@ -59,7 +59,7 @@ const Signup = () => {
         try{
             const res = await authFetch.post(`/api/user/signup`, data);
             console.log(res)
-            if(res?.result === "Y"){
+            if(res?.data.result === "Y"){
                 toast.success("회원가입 완료");
                 navigate("/");
             }
