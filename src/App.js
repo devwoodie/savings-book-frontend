@@ -11,7 +11,8 @@ import {useSelector} from "react-redux";
 
 function App() {
 
-    const userStore = useSelector((state) => state.userStore);
+    const userData= useSelector((state) => state.userStore);
+    console.log(userData);
 
     return (
         <div className="App">

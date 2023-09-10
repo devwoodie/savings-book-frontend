@@ -1,15 +1,26 @@
 import React, {useState} from "react";
 import styled from "styled-components";
 import {FaUserCircle} from "react-icons/fa";
-import {blackBg, blurColor, gray01, gray02, primary, whiteBg} from "../constants/color";
+import {blackBg, blurColor, primary, whiteBg} from "../constants/color";
 import {userInfo} from "../constants/dummy";
 import {PiFinnTheHumanFill} from "react-icons/pi";
 import NicknameChange from "./modal/NicknameChange";
+import {useNavigate} from "react-router-dom";
+import {useDispatch} from "react-redux";
+import {setToken} from "../store/reducers/userSlice";
 
 const Header = () => {
 
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
     const [hover, setHover] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
+
+    const handleLogout = () => {
+        localStorage.removeItem("access-token");
+        dispatch(setToken(""));
+        navigate("/login");
+    }
 
     return(
         <StyledHeader>
@@ -26,6 +37,7 @@ const Header = () => {
                         <PiFinnTheHumanFill className="hover-icon" />
                         <span className="hover-user">{userInfo.nickname}</span>
                         <button className="nickname-btn" type="button" onClick={() => setIsOpen(true)}>닉네임 변경</button>
+                        <button className="nickname-btn" type="button" onClick={handleLogout}>로그아웃</button>
                     </div>
                 }
             </div>
@@ -85,14 +97,17 @@ const StyledHeader = styled.div`
       font-family: "TheJamsil5Bold", sans-serif;
     }
     .nickname-btn{
-      width: 80%;
+      width: 90%;
       background-color: ${primary};
       font-size: 12px;
       color: ${whiteBg};
       border-radius: 8px;
-      margin-top: 20px;
+      margin-top: 15px;
       padding: 5px;
       cursor: pointer;
+      &:last-child{
+        margin-top: 5px;
+      }
     }
   }
 `;

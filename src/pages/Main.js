@@ -9,6 +9,7 @@ import HistoryAll from "../components/HistoryAll";
 import Badge from "../components/Badge";
 import LineChart from "../components/LineChart";
 import {useNavigate} from "react-router-dom";
+import {authFetch} from "../apis/axios";
 
 const Main = () => {
 
@@ -20,7 +21,18 @@ const Main = () => {
         if(!userToken){
             navigate("/login");
         }
+        // getUserData();
     }, []);
+
+    // api 1004
+    const getUserData = async () => {
+        const res = await authFetch.get(`/api/user/userdata`, {
+            headers: {
+                Authorization: userToken
+            }
+        });
+        console.log(res)
+    }
 
     return(
         <StyledWrapper>

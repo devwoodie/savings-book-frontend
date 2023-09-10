@@ -22,17 +22,18 @@ const Login = () => {
         }
     }
 
+    // api 1001
     const loginApi = async () => {
         const body = {
             username: username,
             password: password
         }
         try{
-            const data = await authFetch.post(`/api/user/login`, body)
-            if(data.data.result === "Y"){
+            const res = await authFetch.post(`/api/user/login`, body);
+            if(res.data.result === "Y"){
                 toast.success("로그인 성공");
-                localStorage.setItem("access-token", data.data.access_token);
-                dispatch(setToken(data.data.access_token));
+                localStorage.setItem("access-token", res.data.access_token);
+                dispatch(setToken(res.data.access_token));
                 setTimeout(() => {
                     navigate("/");
                 }, 300);
