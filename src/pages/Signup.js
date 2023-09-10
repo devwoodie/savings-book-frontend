@@ -39,11 +39,11 @@ const Signup = () => {
     }
 
     const handleSubmit = async () => {
-        if(!engNum.test(username)){
-            toast.error("아이디는 영어, 숫자만 입력가능합니다.");
+        if(!engNum.test(username) || username === ""){
+            toast.error("아이디를 확인해주세요.");
             userRef.current.focus();
-        }else if(!koEngNum.test(nickname)){
-            toast.error("닉네임은 한글, 영어, 숫자만 입력가능합니다.");
+        }else if(!koEngNum.test(nickname) || nickname === ""){
+            toast.error("닉네임을 확인해주세요.");
             nickRef.current.focus();
         }else{
             await signupApi();
