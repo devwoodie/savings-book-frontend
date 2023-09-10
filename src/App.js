@@ -1,14 +1,17 @@
-import React from "react";
+import React, {useEffect} from "react";
 import "./style/style.css";
 import "./style/reset.css";
 import "./style/font.css";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import {BrowserRouter, Route, Routes, useNavigate} from "react-router-dom";
 import toast, { Toaster } from 'react-hot-toast';
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Main from "./pages/Main";
+import {useSelector} from "react-redux";
 
 function App() {
+
+    const userStore = useSelector((state) => state.userStore);
 
     return (
         <div className="App">
@@ -22,9 +25,9 @@ function App() {
             <div className="container">
                 <BrowserRouter>
                     <Routes>
-                        <Route path="/" element={<Login />} />
+                        <Route path="/login" element={<Login />} />
                         <Route path="/signup" element={<Signup />} />
-                        <Route path="/home" element={<Main />} />
+                        <Route path="/" element={<Main />} />
                     </Routes>
                 </BrowserRouter>
             </div>

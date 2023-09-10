@@ -4,9 +4,12 @@ import toast, { Toaster } from 'react-hot-toast';
 import {blurColor, gray01, primary, whiteBg} from "../constants/color";
 import {useNavigate} from "react-router-dom";
 import {authFetch} from "../apis/axios";
+import {useDispatch} from "react-redux";
+import {setToken} from "../store/reducers/userSlice";
 
 const Login = () => {
 
+    const dispatch = useDispatch();
     const navigate = useNavigate();
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
@@ -20,23 +23,24 @@ const Login = () => {
     }
 
     const loginApi = async () => {
-        const data = {
+        const body = {
             username: username,
             password: password
         }
         try{
-            const res = await authFetch.post(`/api/user/login`, data)
-            console.log(res);
-            if(res?.data.result === "Y"){
+            const data = await authFetch.post(`/api/user/login`, body)
+            if(data.data.result === "Y"){
                 toast.success("로그인 성공");
+                localStorage.setItem("access-token", data.data.access_token);
+                dispatch(setToken(data.data.access_token));
                 setTimeout(() => {
-                    navigate("/home");
-                }, 500);
+                    navigate("/");
+                }, 300);
             }else{
                 toast.error("아이디 또는 비밀번호를 확인해주세요.");
             }
         }catch (err){
-            console.log(err);
+            toast.error("아이디 또는 비밀번호를 확인해주세요.");
         }
     }
 

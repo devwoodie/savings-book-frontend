@@ -1,5 +1,5 @@
 import axios from 'axios'
-console.log(process.env.REACT_APP_API_URL)
+
 export const authFetch = axios.create({
     baseURL: `https://port-0-savings-book-backend-eu1k2llladze0x.sel3.cloudtype.app`,
 })

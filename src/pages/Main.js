@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import styled from "styled-components";
 import Header from "../components/Header";
 import Calendar from "../components/Calendar";
@@ -8,12 +8,20 @@ import PieChart from "../components/PieChart";
 import HistoryAll from "../components/HistoryAll";
 import Badge from "../components/Badge";
 import LineChart from "../components/LineChart";
+import {useNavigate} from "react-router-dom";
 
 const Main = () => {
 
+    const navigate = useNavigate();
+    const userToken = localStorage.getItem("access-token");
     const [clickDate, setClickDate] = useState("");
 
-    console.log(clickDate)
+    useEffect(() => {
+        if(!userToken){
+            navigate("/login");
+        }
+    }, []);
+
     return(
         <StyledWrapper>
             <Header />
