@@ -1,26 +1,46 @@
 import React, {useEffect, useState} from "react";
 import styled from "styled-components";
 import {blurColor, primary, whiteBg} from "../constants/color";
-import {historyAll} from "../constants/dummy";
+import {authFetch} from "../apis/axios";
+import useObjToQuery from "../hooks/useObjToQuery";
 
 const HistoryAll = () => {
-
+    const objToQuery = useObjToQuery();
     const comma = /\B(?=(\d{3})+(?!\d))/g;
+    const nowYear = localStorage.getItem("nowYear");
+    const nowMonth = localStorage.getItem("nowMonth");
     const [historyIn, setHistoryIn] = useState("");
     const [historyOut, setHistoryOut] = useState("");
 
     useEffect(() => {
-        setHistoryIn(historyAll?.in);
-        setHistoryOut(historyAll?.out);
-    }, [historyIn, historyOut]);
+        getMonthTotal();
+    }, []);
+
+    // api 1101
+    const getMonthTotal = async () => {
+        const body = {
+            year: nowYear,
+            month: nowMonth
+        }
+        try{
+            const res = await authFetch.get(`/api/main/monthtotal${objToQuery(body)}`);
+            console.log(res.data)
+            if(res.data.result === "Y"){
+                setHistoryIn(res.data.data.list.in || "0");
+                setHistoryOut(res.data.data.list.out || "0");
+            }
+        }catch (err){
+            console.log(err);
+        }
+    }
 
     return(
         <StyledWrapper>
             <div className="history-wrap">
-                <p>이번 달 총 수입</p><span>{historyIn.toString().replace(comma, ",")} <i>원</i></span>
+                <p>이번 달 총 수입</p><span>{historyIn.toString().replace(comma, ",") || "0"} <i>원</i></span>
             </div>
             <div className="history-wrap">
-                <p>이번 달 총 지출</p><span>{historyOut.toString().replace(comma, ",")} <i>원</i></span>
+                <p>이번 달 총 지출</p><span>{historyOut.toString().replace(comma, ",") || "0"} <i>원</i></span>
             </div>
         </StyledWrapper>
     )

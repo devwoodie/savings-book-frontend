@@ -3,19 +3,21 @@ import styled from "styled-components";
 import {blackBg, blurColor, primary, whiteBg} from "../constants/color";
 import {goal} from "../constants/dummy";
 import toast from "react-hot-toast";
+import {authFetch} from "../apis/axios";
+import useObjToQuery from "../hooks/useObjToQuery";
 
 const Goal = () => {
-
+    const objToQuery = useObjToQuery();
     let onlyNum =  /^[0-9]*$/;
     const [goalEmpty, setGoalEmpty] = useState(false);
     const [goalAmount, setGoalAmount] = useState("");
     const [isFixed, setIsFixed] = useState(false);
-    let resultGoal = goalAmount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-    let date = new Date();
-    let month = date.getMonth() + 1;
+    const resultGoal = goalAmount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    const nowYear = localStorage.getItem("nowYear");
+    const nowMonth = localStorage.getItem("nowMonth");
 
     useEffect(() => {
-        setGoalAmount(goal.goal_money);
+        getGoalData();
     }, []);
     useEffect(() => {
         if(goalAmount === ""){
@@ -32,17 +34,70 @@ const Goal = () => {
     }
     const handleSubmit = () => {
         if(goalAmount !== "" && onlyNum.test(goalAmount)){
-            // api call
-            setIsFixed(false);
-            toast.success("저장되었습니다.");
+            if(goalEmpty){
+                postGoalData();
+            }else{
+                putGoalData();
+            }
         }else{
             toast.error("금액을 확인해주세요.");
         }
     }
 
+    // api 1102
+    const getGoalData = async () => {
+        const body = {
+            year: nowYear,
+            month: nowMonth
+        }
+        try{
+            const res = await authFetch.get(`/api/main/goal${objToQuery(body)}`);
+            console.log(res.data)
+            if(res.data.result === "Y"){
+                setGoalAmount(res.data.data.goal_money);
+            }
+        }catch (err){
+            console.log(err);
+        }
+    }
+    // api 1103
+    const postGoalData = async () => {
+        const body = {
+            year: nowYear,
+            month: nowMonth,
+            goal_money: goalAmount
+        }
+        try{
+            const res = await authFetch.post(`/api/main/goal`, body);
+            if(res.data.result === "Y"){
+                setIsFixed(false);
+                toast.success("저장되었습니다.");
+            }
+        }catch (err){
+            console.log(err);
+        }
+    }
+    // api 1104
+    const putGoalData = async () => {
+        const body = {
+            year: nowYear,
+            month: nowMonth,
+            goal_money: goalAmount
+        }
+        try{
+            const res = await authFetch.put(`/api/main/goal`, body);
+            if(res.data.result === "Y"){
+                setIsFixed(false);
+                toast.success("저장되었습니다.");
+            }
+        }catch (err){
+
+        }
+    }
+
     return(
         <StyledWrapper>
-            <h2>{month}월 목표 지출 금액</h2>
+            <h2>{nowMonth}월 목표 지출 금액</h2>
             <p>
                 {!isFixed?
                     (!goalEmpty ?

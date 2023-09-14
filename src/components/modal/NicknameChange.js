@@ -30,7 +30,7 @@ const NicknameChange = ({
         try{
             const res = await authFetch.patch(`/api/user/nickname`, body);
             if(res.data.result === "Y"){
-                console.log("success");
+                toast.success("닉네임 변경이 완료되었습니다.");
             }
         }catch (err){
             console.log(err)
@@ -43,7 +43,6 @@ const NicknameChange = ({
         }else if(nickChange === nick){
             toast.error("기존 닉네임과 동일합니다.");
         }else{
-            toast.success("닉네임 변경 완료");
             patchNickname();
             setIsOpen(false);
         }

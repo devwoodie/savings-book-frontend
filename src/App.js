@@ -13,6 +13,14 @@ function App() {
 
     const userData= useSelector((state) => state.userStore);
     console.log(userData);
+    const nowYear = new Date().getFullYear();
+    const nowMonth = new Date().getMonth() + 1;
+    const formattedMonth = nowMonth < 10 ? `0${nowMonth}` : nowMonth.toString();
+
+    useEffect(() => {
+        localStorage.setItem("nowYear", nowYear);
+        localStorage.setItem("nowMonth", formattedMonth);
+    }, []);
 
     return (
         <div className="App">

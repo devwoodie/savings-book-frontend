@@ -27,10 +27,13 @@ const Main = () => {
 
     // api 1004
     const getUserData = async () => {
-        const res = await authFetch.get(`/api/user/userdata`);
-        if(res.data.result === "Y"){
-            console.log(res.data.data)
-            setNickname(res.data.data.nick_name);
+        try{
+            const res = await authFetch.get(`/api/user/userdata`);
+            if(res.data.result === "Y"){
+                setNickname(res.data.data.nick_name);
+            }
+        }catch (err){
+            console.log(err)
         }
     }
 
