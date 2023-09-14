@@ -32,8 +32,8 @@ const Login = () => {
             const res = await authFetch.post(`/api/user/login`, body);
             if(res.data.result === "Y"){
                 toast.success("로그인 성공");
-                localStorage.setItem("access-token", res.data.access_token);
-                dispatch(setToken(res.data.access_token));
+                localStorage.setItem("access-token", res.data.authorization);
+                dispatch(setToken(res.data.authorization));
                 setTimeout(() => {
                     navigate("/");
                 }, 300);

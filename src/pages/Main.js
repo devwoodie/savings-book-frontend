@@ -16,27 +16,27 @@ const Main = () => {
     const navigate = useNavigate();
     const userToken = localStorage.getItem("access-token");
     const [clickDate, setClickDate] = useState("");
+    const [nickname, setNickname] = useState("");
 
     useEffect(() => {
         if(!userToken){
             navigate("/login");
         }
-        // getUserData();
+        getUserData();
     }, []);
 
     // api 1004
     const getUserData = async () => {
-        const res = await authFetch.get(`/api/user/userdata`, {
-            headers: {
-                Authorization: userToken
-            }
-        });
-        console.log(res)
+        const res = await authFetch.get(`/api/user/userdata`);
+        if(res.data.result === "Y"){
+            console.log(res.data.data)
+            setNickname(res.data.data.nick_name);
+        }
     }
 
     return(
         <StyledWrapper>
-            <Header />
+            <Header nickname={nickname} />
             <div className="cont">
                 <div className="cont-left">
                     <Goal />

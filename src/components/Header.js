@@ -9,7 +9,7 @@ import {useNavigate} from "react-router-dom";
 import {useDispatch} from "react-redux";
 import {setToken} from "../store/reducers/userSlice";
 
-const Header = () => {
+const Header = ({nickname}) => {
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -29,19 +29,19 @@ const Header = () => {
                 onMouseOver={() => setHover(true)}
             >
                 <FaUserCircle className="user-icon" />
-                {userInfo.nickname} 님
+                {nickname} 님
                 {hover &&
                     <div className="hover-wrap"
                          onMouseOut={() => setHover(false)}
                     >
                         <PiFinnTheHumanFill className="hover-icon" />
-                        <span className="hover-user">{userInfo.nickname}</span>
+                        <span className="hover-user">{nickname}</span>
                         <button className="nickname-btn" type="button" onClick={() => setIsOpen(true)}>닉네임 변경</button>
                         <button className="nickname-btn" type="button" onClick={handleLogout}>로그아웃</button>
                     </div>
                 }
             </div>
-            {isOpen && <NicknameChange nick={userInfo.nickname} setIsOpen={setIsOpen} />}
+            {isOpen && <NicknameChange nick={nickname} setIsOpen={setIsOpen} />}
         </StyledHeader>
     )
 }

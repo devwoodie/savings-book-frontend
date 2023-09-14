@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import styled from "styled-components";
 import {gray01, primary, whiteBg} from "../../constants/color";
 import toast from "react-hot-toast";
+import {authFetch} from "../../apis/axios";
 
 const NicknameChange = ({
                             nick,
@@ -21,6 +22,21 @@ const NicknameChange = ({
         }
     }
 
+    // api 1003
+    const patchNickname = async () => {
+        const body = {
+            nick_name: nickChange
+        }
+        try{
+            const res = await authFetch.patch(`/api/user/nickname`, body);
+            if(res.data.result === "Y"){
+                console.log("success");
+            }
+        }catch (err){
+            console.log(err)
+        }
+    }
+
     const handleChange = () => {
         if(!koEngNum.test(nickChange)) {
             toast.error("닉네임은 한글, 영어, 숫자만 입력가능합니다.");
@@ -28,6 +44,7 @@ const NicknameChange = ({
             toast.error("기존 닉네임과 동일합니다.");
         }else{
             toast.success("닉네임 변경 완료");
+            patchNickname();
             setIsOpen(false);
         }
     }
