@@ -13,6 +13,7 @@ import {
     whiteBg
 } from "../../constants/color";
 import toast from "react-hot-toast";
+import {authFetch} from "../../apis/axios";
 
 const RegisterModal = ({
                            editedItem,
@@ -27,6 +28,7 @@ const RegisterModal = ({
     const year = dateArray[0];
     const month = dateArray[1];
     const day = dateArray[2];
+    const [editId, setEditId] = useState("")
     const [type, setType] = useState("");
     const [category, setCategory] = useState("");
     const [content, setContent] = useState("");
@@ -34,6 +36,7 @@ const RegisterModal = ({
 
     useEffect(() => {
         if (edit) {
+            setEditId(editedItem._id)
             setType(editedItem.type);
             setCategory(editedItem.category);
             setContent(editedItem.content);
@@ -64,12 +67,61 @@ const RegisterModal = ({
             money !== "" &&
             onlyNum.test(money)
         ){
-            // api call
-            toast.success(`${edit ? "수정" : "등록"}이 완료되었습니다.`);
-            setEdit(false);
-            setIsRegister(false);
+            if(!edit){
+                postDetailDate();
+            }else{
+                putDetailDate();
+            }
         }else{
             toast.error("내용을 확인해주세요.");
+        }
+    }
+
+    // api 1109
+    const postDetailDate = async () => {
+        const body = {
+            year: year,
+            month: month,
+            day: day,
+            type: type,
+            money: money,
+            content: content,
+            category: category
+        }
+        try{
+            const res = await authFetch.post(`/api/main/details`, body);
+            if(res.data.result === "Y"){
+                toast.success(`등록이 완료되었습니다.`);
+                setEdit(false);
+                setIsRegister(false);
+            }
+        }catch (err){
+            toast.error("에러가 발생했습니다.");
+            console.log(err);
+        }
+    }
+    // api 1110
+    const putDetailDate = async () => {
+        const body = {
+            year: year,
+            month: month,
+            day: day,
+            type: type,
+            money: money,
+            content: content,
+            category: category,
+            amount_nm: editId
+        }
+        try{
+            const res = await authFetch.put(`/api/main/details`, body);
+            if(res.data.result === "Y"){
+                toast.success(`수정이 완료되었습니다.`);
+                setEdit(false);
+                setIsRegister(false);
+            }
+        }catch (err){
+            toast.error("에러가 발생했습니다.");
+            console.log(err);
         }
     }
 

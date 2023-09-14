@@ -3,6 +3,7 @@ import styled from "styled-components";
 import {blurColor, primary, whiteBg} from "../constants/color";
 import {authFetch} from "../apis/axios";
 import useObjToQuery from "../hooks/useObjToQuery";
+import toast from "react-hot-toast";
 
 const HistoryAll = () => {
     const objToQuery = useObjToQuery();
@@ -24,12 +25,12 @@ const HistoryAll = () => {
         }
         try{
             const res = await authFetch.get(`/api/main/monthtotal${objToQuery(body)}`);
-            console.log(res.data)
             if(res.data.result === "Y"){
                 setHistoryIn(res.data.data.list.in || "0");
                 setHistoryOut(res.data.data.list.out || "0");
             }
         }catch (err){
+            toast.error("에러가 발생했습니다.");
             console.log(err);
         }
     }

@@ -10,6 +10,7 @@ import Badge from "../components/Badge";
 import LineChart from "../components/LineChart";
 import {useNavigate} from "react-router-dom";
 import {authFetch} from "../apis/axios";
+import toast from "react-hot-toast";
 
 const Main = () => {
 
@@ -33,7 +34,8 @@ const Main = () => {
                 setNickname(res.data.data.nick_name);
             }
         }catch (err){
-            console.log(err)
+            toast.error("에러가 발생했습니다.");
+            console.log(err);
         }
     }
 

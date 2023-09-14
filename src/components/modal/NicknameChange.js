@@ -33,7 +33,8 @@ const NicknameChange = ({
                 toast.success("닉네임 변경이 완료되었습니다.");
             }
         }catch (err){
-            console.log(err)
+            toast.error("에러가 발생했습니다.");
+            console.log(err);
         }
     }
 

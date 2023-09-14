@@ -17,9 +17,11 @@ import {detailDate} from "../constants/dummy";
 import RegisterModal from "./modal/RegisterModal";
 import ConfirmModal from "./modal/ConfirmModal";
 import toast from "react-hot-toast";
+import {authFetch} from "../apis/axios";
+import useObjToQuery from "../hooks/useObjToQuery";
 
 const DetailDate = ({clickDate}) => {
-
+    const objToQuery = useObjToQuery();
     const comma = /\B(?=(\d{3})+(?!\d))/g;
     const [click, setClick] = useState(false);
     const [thisData, setThisData] = useState();
@@ -44,7 +46,7 @@ const DetailDate = ({clickDate}) => {
 
     useEffect(() => {
         if(clickDate !== ""){
-            setThisData(detailDate.daily);
+            getDetailDate();
             setClick(true);
         }else{
             setClick(false);
@@ -61,7 +63,6 @@ const DetailDate = ({clickDate}) => {
 
     // 내역 수정 버튼
     const handleUpdateBtn = (item) => {
-        setUpdateItemId(item);
         setEditedItem(item);
         setEdit(true);
         setIsRegister(true);
@@ -73,11 +74,43 @@ const DetailDate = ({clickDate}) => {
     }
     // 삭제 실행
     const handleDelete = () => {
-        const updatedData = thisData.filter((dataItem) => dataItem.amount_nm !== deleteItemId);
-        setThisData(updatedData);
-        setIsDelete(false);
-        toast.success("삭제되었습니다.");
+        delDetailDate(deleteItemId);
     };
+
+    // api 1108
+    const getDetailDate = async () => {
+        const body = {
+            year: year,
+            month: month,
+            day: day
+        }
+        try{
+            const res = await authFetch.get(`/api/main/details${objToQuery(body)}`);
+            if(res.data.result === "Y"){
+                setThisData(res.data.data);
+            }
+        }catch (err){
+            toast.error("에러가 발생했습니다.");
+            console.log(err);
+        }
+    }
+    // api 1111
+    const delDetailDate = async (delId) => {
+        const body = {
+            amount_nm: delId
+        }
+        try{
+            const res = await authFetch.delete(`/api/main/details${objToQuery(body)}`);
+            if(res.data.result === "Y"){
+                setIsDelete(false);
+                toast.success("삭제되었습니다.");
+            }
+        }catch (err){
+            toast.error("에러가 발생했습니다.");
+            console.log(err);
+        }
+    }
+
     return(
         <StyledWrapper>
             <h2>상세 내역</h2>
@@ -89,18 +122,24 @@ const DetailDate = ({clickDate}) => {
                     </span>
                     <ul className="detail-list">
                         {thisData && thisData?.map((item, key) => (
-                            <li className="detail-cont" key={item?.amount_nm}>
+                            <li className="detail-cont" key={item?._id}>
                                 <div className="detail-top">
                                     {item?.type === "in" ? <i className="in">수입</i> : <i className="out">지출</i>}
                                     <span
                                         className={
-                                            item?.category === "외식" ? "type eat" :
-                                                item?.category === "카페" ? "type cafe" :
-                                                    item?.category === "유흥" ? "type pleasure" :
-                                                        item?.category === "쇼핑" ? "type shopping" :
-                                                            item?.category === "기타" ? "type etc" : "type"
+                                            item?.category === "eat" ? "type eat" :
+                                                item?.category === "cafe" ? "type cafe" :
+                                                    item?.category === "pleasure" ? "type pleasure" :
+                                                        item?.category === "shopping" ? "type shopping" :
+                                                            item?.category === "etc" ? "type etc" : "type"
                                         }
-                                    >{item?.category}</span>
+                                    >{
+                                        item?.category === "eat" ? "외식" :
+                                            item?.category === "cafe" ? "카페" :
+                                                item?.category === "pleasure" ? "유흥" :
+                                                    item?.category === "shopping" ? "쇼핑" :
+                                                        item?.category === "etc" ? "기타" : null
+                                    }</span>
                                 </div>
                                 <div className="detail-bottom">
                                     <p className="content">{item?.content}</p>
@@ -108,7 +147,7 @@ const DetailDate = ({clickDate}) => {
                                 </div>
                                 <div className="detail-btn-wrap">
                                     <button type="button" className="fixed-btn" onClick={() => handleUpdateBtn(item)}>수정</button>
-                                    <button type="button" className="del-btn" onClick={() => handleDeleteBtn(item.amount_nm)}>삭제</button>
+                                    <button type="button" className="del-btn" onClick={() => handleDeleteBtn(item._id)}>삭제</button>
                                 </div>
                             </li>
                         ))}

@@ -64,6 +64,7 @@ const Signup = () => {
                 navigate("/login");
             }
         }catch (err){
+            toast.error("에러가 발생했습니다.");
             console.log(err);
         }
     }

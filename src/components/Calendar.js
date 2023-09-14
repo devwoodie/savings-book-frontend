@@ -4,29 +4,60 @@ import {blackBg, blurColor, expend, income, whiteBg} from "../constants/color";
 import FullCalendar from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import interactionPlugin from "@fullcalendar/interaction"
+import useObjToQuery from "../hooks/useObjToQuery";
+import {authFetch} from "../apis/axios";
+import toast from "react-hot-toast";
 
 const Calendar = ({setClickDate}) => {
-    const event = [
-        { title: '25,000', date: '2023-09-05', color: income },
-        { title: '39,000', date: '2023-09-05', color: expend },
-        { title: '65,000', date: '2023-09-15', color: expend },
-        { title: '4,500,000', date: '2023-09-25', color: income },
-        { title: '105,000', date: '2023-09-16', color: expend },
-        { title: '32,000', date: '2023-09-01', color: income },
-        { title: '15,000', date: '2023-09-10', color: expend }
+    const objToQuery = useObjToQuery();
+    const nowYear = localStorage.getItem("nowYear");
+    const nowMonth = localStorage.getItem("nowMonth");
+    const [AllData, setAllData] = useState([]);
+
+    const data = [
+        {title: 50000, data: '2023-09-05', color: 'expend'},
+        {date: "2023-09-06", type: "out", money: "50000"},
+        {date: "2023-09-15", type: "out", money: "50000"},
+        {date: "2023-09-05", type: "in", money: "50000"},
     ]
 
+    useEffect(() => {
+        getCalendarData();
+    }, []);
     const handleDateClick = (arg) => {
         setClickDate(arg.dateStr);
         // arg.dayEl.style.backgroundColor = "#f00";
         console.log(arg)
     }
 
+    // api 1107
+    const getCalendarData = async () => {
+        const body = {
+            year: nowYear,
+            month: nowMonth
+        }
+        try{
+            const res = await authFetch.get(`/api/main/calendar${objToQuery(body)}`);
+            if(res.data.result === "Y"){
+                setAllData(res.data.data.map(item => {
+                    return{
+                        title: item.money?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','),
+                        date: item.date,
+                        color: item.type === "in" ? income : expend
+                    }
+                }))
+            }
+        }catch (err){
+            toast.error("에러가 발생했습니다.");
+            console.log(err);
+        }
+    }
+
     return(
         <StyledWrapper>
             <FullCalendar
                 plugins={[ dayGridPlugin, interactionPlugin ]}
-                events={event}
+                events={AllData}
                 eventClassNames="event-tooltip"
                 dateClick={handleDateClick}
             />

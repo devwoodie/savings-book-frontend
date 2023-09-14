@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from "react";
 import styled from "styled-components";
-import {blackBg, blurColor, primary, whiteBg} from "../constants/color";
-import {goal} from "../constants/dummy";
+import {blurColor, primary, whiteBg} from "../constants/color";
 import toast from "react-hot-toast";
 import {authFetch} from "../apis/axios";
 import useObjToQuery from "../hooks/useObjToQuery";
@@ -19,19 +18,13 @@ const Goal = () => {
     useEffect(() => {
         getGoalData();
     }, []);
-    useEffect(() => {
-        if(goalAmount === ""){
-            setGoalEmpty(true);
-        }else{
-            setGoalEmpty(false);
-        }
-    }, [goalAmount])
 
     const handleInput = (event) => {
         if(event.target.id === "goalMoney"){
             setGoalAmount(event.target.value);
         }
     }
+
     const handleSubmit = () => {
         if(goalAmount !== "" && onlyNum.test(goalAmount)){
             if(goalEmpty){
@@ -52,11 +45,14 @@ const Goal = () => {
         }
         try{
             const res = await authFetch.get(`/api/main/goal${objToQuery(body)}`);
-            console.log(res.data)
             if(res.data.result === "Y"){
+                setGoalEmpty(false);
                 setGoalAmount(res.data.data.goal_money);
+            }else if(res.data.code === 400){
+                setGoalEmpty(true);
             }
         }catch (err){
+            toast.error("에러가 발생했습니다.");
             console.log(err);
         }
     }
@@ -74,6 +70,7 @@ const Goal = () => {
                 toast.success("저장되었습니다.");
             }
         }catch (err){
+            toast.error("에러가 발생했습니다.");
             console.log(err);
         }
     }

@@ -1,12 +1,24 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import styled from "styled-components";
 import {blurColor, cafe, eat, etc, pleasure, shopping, whiteBg} from "../constants/color";
-// import ApexChart from 'apexcharts'
 import Chart from "react-apexcharts";
+import toast from "react-hot-toast";
+import {authFetch} from "../apis/axios";
+import useObjToQuery from "../hooks/useObjToQuery";
 
 const PieChart = () => {
+    const objToQuery = useObjToQuery();
+    const nowYear = localStorage.getItem("nowYear");
+    const nowMonth = localStorage.getItem("nowMonth");
+    const [chartData, setChartData] = useState([]);
+    const isAllZero = chartData.every(value => value === 0);
+
+    useEffect(() => {
+        getCategoryData();
+    }, []);
+
     const data = {
-        series: [25,35,10,20,10],
+        series: !isAllZero ? chartData : [20,20,20,20,20],
         options: {
             chart: {
                 type: 'pie',
@@ -20,6 +32,29 @@ const PieChart = () => {
             },
             colors:[`${eat}`,`${cafe}`,`${pleasure}`,`${shopping}`,`${etc}`],
         },
+    }
+
+    // api 1105
+    const getCategoryData = async () => {
+        const body = {
+            year: nowYear,
+            month: nowMonth
+        }
+        try{
+            const res = await authFetch.get(`/api/main/category${objToQuery(body)}`);
+            if(res.data.result === "Y"){
+                setChartData([
+                    res.data.data.category.eat,
+                    res.data.data.category.cafe,
+                    res.data.data.category.pleasure,
+                    res.data.data.category.shopping,
+                    res.data.data.category.etc,
+                ])
+            }
+        }catch (err){
+            toast.error("에러가 발생했습니다.");
+            console.log(err);
+        }
     }
 
     return(
