@@ -5,7 +5,7 @@ import {authFetch} from "../apis/axios";
 import useObjToQuery from "../hooks/useObjToQuery";
 import toast from "react-hot-toast";
 
-const HistoryAll = () => {
+const HistoryAll = ({refresh}) => {
     const objToQuery = useObjToQuery();
     const comma = /\B(?=(\d{3})+(?!\d))/g;
     const nowYear = localStorage.getItem("nowYear");
@@ -16,6 +16,9 @@ const HistoryAll = () => {
     useEffect(() => {
         getMonthTotal();
     }, []);
+    useEffect(() => {
+        getMonthTotal();
+    }, [refresh]);
 
     // api 1101
     const getMonthTotal = async () => {

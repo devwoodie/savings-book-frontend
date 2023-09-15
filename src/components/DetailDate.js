@@ -13,19 +13,20 @@ import {
     shopping,
     whiteBg
 } from "../constants/color";
-import {detailDate} from "../constants/dummy";
 import RegisterModal from "./modal/RegisterModal";
 import ConfirmModal from "./modal/ConfirmModal";
 import toast from "react-hot-toast";
 import {authFetch} from "../apis/axios";
 import useObjToQuery from "../hooks/useObjToQuery";
 
-const DetailDate = ({clickDate}) => {
+const DetailDate = ({
+    clickDate,
+    setRefresh
+}) => {
     const objToQuery = useObjToQuery();
     const comma = /\B(?=(\d{3})+(?!\d))/g;
     const [click, setClick] = useState(false);
     const [thisData, setThisData] = useState();
-    const [updateItemId, setUpdateItemId] = useState(null);
     const [deleteItemId, setDeleteItemId] = useState(null);
     const [edit, setEdit] = useState(false);
     const [editedItem, setEditedItem] = useState({
@@ -56,6 +57,7 @@ const DetailDate = ({clickDate}) => {
     const handleRegisterBtn = () => {
         if(clickDate !== ""){
             setIsRegister(true);
+            setRefresh(false);
         }else{
             setIsRegister(false);
         }
@@ -64,12 +66,14 @@ const DetailDate = ({clickDate}) => {
     // 내역 수정 버튼
     const handleUpdateBtn = (item) => {
         setEditedItem(item);
+        setRefresh(false);
         setEdit(true);
         setIsRegister(true);
     }
     // 내역 삭제 버튼
     const handleDeleteBtn = (itemId) => {
         setIsDelete(true);
+        setRefresh(false);
         setDeleteItemId(itemId);
     }
     // 삭제 실행
@@ -102,8 +106,10 @@ const DetailDate = ({clickDate}) => {
         try{
             const res = await authFetch.delete(`/api/main/details${objToQuery(body)}`);
             if(res.data.result === "Y"){
-                setIsDelete(false);
+                getDetailDate();
                 toast.success("삭제되었습니다.");
+                setIsDelete(false);
+                setRefresh(true);
             }
         }catch (err){
             toast.error("에러가 발생했습니다.");
@@ -156,11 +162,13 @@ const DetailDate = ({clickDate}) => {
             }
             {isRegister &&
                 <RegisterModal
+                    getDetailDate={getDetailDate}
                     editedItem={editedItem}
                     edit={edit}
                     setEdit={setEdit}
                     clickDate={clickDate}
                     setIsRegister={setIsRegister}
+                    setRefresh={setRefresh}
                 />
             }
             {isDelete && <ConfirmModal text={"이 내역을 삭제하시겠습니까?"} confirm={handleDelete} setIsDelete={setIsDelete} />}

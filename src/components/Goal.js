@@ -67,6 +67,7 @@ const Goal = () => {
             const res = await authFetch.post(`/api/main/goal`, body);
             if(res.data.result === "Y"){
                 setIsFixed(false);
+                setGoalEmpty(false);
                 toast.success("저장되었습니다.");
             }
         }catch (err){
@@ -85,6 +86,7 @@ const Goal = () => {
             const res = await authFetch.put(`/api/main/goal`, body);
             if(res.data.result === "Y"){
                 setIsFixed(false);
+                setGoalEmpty(false);
                 toast.success("저장되었습니다.");
             }
         }catch (err){

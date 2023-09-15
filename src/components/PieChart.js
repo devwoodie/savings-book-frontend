@@ -6,7 +6,7 @@ import toast from "react-hot-toast";
 import {authFetch} from "../apis/axios";
 import useObjToQuery from "../hooks/useObjToQuery";
 
-const PieChart = () => {
+const PieChart = ({refresh}) => {
     const objToQuery = useObjToQuery();
     const nowYear = localStorage.getItem("nowYear");
     const nowMonth = localStorage.getItem("nowMonth");
@@ -16,6 +16,9 @@ const PieChart = () => {
     useEffect(() => {
         getCategoryData();
     }, []);
+    useEffect(() => {
+        getCategoryData();
+    }, [refresh]);
 
     const data = {
         series: !isAllZero ? chartData : [20,20,20,20,20],
@@ -44,11 +47,11 @@ const PieChart = () => {
             const res = await authFetch.get(`/api/main/category${objToQuery(body)}`);
             if(res.data.result === "Y"){
                 setChartData([
-                    res.data.data.category.eat,
-                    res.data.data.category.cafe,
-                    res.data.data.category.pleasure,
-                    res.data.data.category.shopping,
-                    res.data.data.category.etc,
+                    Number(res.data.data.category.eat),
+                    Number(res.data.data.category.cafe),
+                    Number(res.data.data.category.pleasure),
+                    Number(res.data.data.category.shopping),
+                    Number(res.data.data.category.etc),
                 ])
             }
         }catch (err){

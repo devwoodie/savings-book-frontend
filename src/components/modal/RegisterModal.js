@@ -16,11 +16,13 @@ import toast from "react-hot-toast";
 import {authFetch} from "../../apis/axios";
 
 const RegisterModal = ({
-                           editedItem,
-                           edit,
-                           setEdit,
-                           clickDate,
-                           setIsRegister
+    getDetailDate,
+    editedItem,
+    edit,
+    setEdit,
+    clickDate,
+    setIsRegister,
+    setRefresh
 }) => {
 
     let onlyNum =  /^[0-9]*$/;
@@ -91,9 +93,11 @@ const RegisterModal = ({
         try{
             const res = await authFetch.post(`/api/main/details`, body);
             if(res.data.result === "Y"){
+                getDetailDate();
                 toast.success(`등록이 완료되었습니다.`);
                 setEdit(false);
                 setIsRegister(false);
+                setRefresh(true);
             }
         }catch (err){
             toast.error("에러가 발생했습니다.");
@@ -115,9 +119,11 @@ const RegisterModal = ({
         try{
             const res = await authFetch.put(`/api/main/details`, body);
             if(res.data.result === "Y"){
+                getDetailDate();
                 toast.success(`수정이 완료되었습니다.`);
                 setEdit(false);
                 setIsRegister(false);
+                setRefresh(true);
             }
         }catch (err){
             toast.error("에러가 발생했습니다.");

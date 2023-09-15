@@ -8,26 +8,25 @@ import useObjToQuery from "../hooks/useObjToQuery";
 import {authFetch} from "../apis/axios";
 import toast from "react-hot-toast";
 
-const Calendar = ({setClickDate}) => {
+const Calendar = ({
+    setClickDate,
+    refresh
+}) => {
     const objToQuery = useObjToQuery();
     const nowYear = localStorage.getItem("nowYear");
     const nowMonth = localStorage.getItem("nowMonth");
     const [AllData, setAllData] = useState([]);
 
-    const data = [
-        {title: 50000, data: '2023-09-05', color: 'expend'},
-        {date: "2023-09-06", type: "out", money: "50000"},
-        {date: "2023-09-15", type: "out", money: "50000"},
-        {date: "2023-09-05", type: "in", money: "50000"},
-    ]
-
     useEffect(() => {
         getCalendarData();
     }, []);
+    useEffect(() => {
+        getCalendarData();
+    }, [refresh]);
     const handleDateClick = (arg) => {
         setClickDate(arg.dateStr);
         // arg.dayEl.style.backgroundColor = "#f00";
-        console.log(arg)
+        // console.log(arg)
     }
 
     // api 1107

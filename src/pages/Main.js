@@ -18,6 +18,7 @@ const Main = () => {
     const userToken = localStorage.getItem("access-token");
     const [clickDate, setClickDate] = useState("");
     const [nickname, setNickname] = useState("");
+    const [refresh, setRefresh] = useState(false);
 
     useEffect(() => {
         if(!userToken){
@@ -45,16 +46,16 @@ const Main = () => {
             <div className="cont">
                 <div className="cont-left">
                     <Goal />
-                    <Calendar setClickDate={setClickDate} />
+                    <Calendar setClickDate={setClickDate} refresh={refresh} />
                 </div>
                 <div className="cont-right">
                     <div className="inner-flex-left">
-                        <DetailDate clickDate={clickDate} />
+                        <DetailDate clickDate={clickDate} setRefresh={setRefresh} />
                         <LineChart />
                     </div>
                     <div className="inner-flex-right">
-                        <PieChart />
-                        <HistoryAll />
+                        <PieChart refresh={refresh} />
+                        <HistoryAll refresh={refresh} />
                         <Badge />
                     </div>
                 </div>
