@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import styled from "styled-components";
-import {blackBg, blurColor, expend, income, whiteBg} from "../constants/color";
+import {blackBg, blurColor, expend, income, primary, whiteBg} from "../constants/color";
 import FullCalendar from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import interactionPlugin from "@fullcalendar/interaction"
@@ -25,8 +25,6 @@ const Calendar = ({
     }, [refresh]);
     const handleDateClick = (arg) => {
         setClickDate(arg.dateStr);
-        // arg.dayEl.style.backgroundColor = "#f00";
-        // console.log(arg)
     }
 
     // api 1107
@@ -38,6 +36,7 @@ const Calendar = ({
         try{
             const res = await authFetch.get(`/api/main/calendar${objToQuery(body)}`);
             if(res.data.result === "Y"){
+                console.log(res.data.data)
                 setAllData(res.data.data.map(item => {
                     return{
                         title: item.money?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','),
@@ -57,6 +56,7 @@ const Calendar = ({
             <FullCalendar
                 plugins={[ dayGridPlugin, interactionPlugin ]}
                 events={AllData}
+                selectable={true}
                 eventClassNames="event-tooltip"
                 dateClick={handleDateClick}
             />
@@ -92,6 +92,10 @@ const StyledWrapper = styled.div`
   .fc .fc-button-primary:disabled{
     background-color: ${whiteBg};
     color: ${blackBg};
+  }
+
+  .fc .fc-highlight{
+    background-color: #6A7DDF64;
   }
 `;
 
