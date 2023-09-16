@@ -52,7 +52,6 @@ const Goal = () => {
                 setGoalEmpty(true);
             }
         }catch (err){
-            toast.error("에러가 발생했습니다.");
             console.log(err);
         }
     }
@@ -71,7 +70,6 @@ const Goal = () => {
                 toast.success("저장되었습니다.");
             }
         }catch (err){
-            toast.error("에러가 발생했습니다.");
             console.log(err);
         }
     }
@@ -90,7 +88,7 @@ const Goal = () => {
                 toast.success("저장되었습니다.");
             }
         }catch (err){
-
+            console.log(err);
         }
     }
 

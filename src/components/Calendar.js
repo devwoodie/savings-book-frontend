@@ -6,7 +6,6 @@ import dayGridPlugin from '@fullcalendar/daygrid'
 import interactionPlugin from "@fullcalendar/interaction"
 import useObjToQuery from "../hooks/useObjToQuery";
 import {authFetch} from "../apis/axios";
-import toast from "react-hot-toast";
 
 const Calendar = ({
     setClickDate,
@@ -46,7 +45,6 @@ const Calendar = ({
                 }))
             }
         }catch (err){
-            toast.error("에러가 발생했습니다.");
             console.log(err);
         }
     }

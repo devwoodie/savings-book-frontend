@@ -33,10 +33,17 @@ const Main = () => {
             const res = await authFetch.get(`/api/user/userdata`);
             if(res.data.result === "Y"){
                 setNickname(res.data.data.nick_name);
+            }else if(res.data.code === 401){
+                // 유효하지 않은 토큰
+                navigate("/login");
+            }else if(res.data.code === 419){
+                // 만료된 토큰
+                navigate("/login");
             }
         }catch (err){
-            toast.error("에러가 발생했습니다.");
-            console.log(err);
+            if(err.response.data.code === 401){
+                toast.error("로그인이 필요합니다.");
+            }
         }
     }
 
@@ -51,7 +58,7 @@ const Main = () => {
                 <div className="cont-right">
                     <div className="inner-flex-left">
                         <DetailDate clickDate={clickDate} setRefresh={setRefresh} />
-                        <LineChart />
+                        <LineChart refresh={refresh} />
                     </div>
                     <div className="inner-flex-right">
                         <PieChart refresh={refresh} />

@@ -1,19 +1,34 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import styled from "styled-components";
-import {blurColor, cafe, eat, etc, pleasure, shopping, whiteBg} from "../constants/color";
+import {blurColor, cafe, eat, etc, expend, income, pleasure, shopping, whiteBg} from "../constants/color";
 import Chart from "react-apexcharts";
+import useObjToQuery from "../hooks/useObjToQuery";
+import {authFetch} from "../apis/axios";
 
-const LineChart = () => {
+const LineChart = ({refresh}) => {
+    const objToQuery = useObjToQuery();
+    const nowYear = localStorage.getItem("nowYear");
+    const nowMonth = localStorage.getItem("nowMonth");
+    const daysArray = Array.from({ length: 31 }, (_, index) => `${index + 1}일`);
+    const [lineData, setLineData] = useState([]);
+
+    useEffect(() => {
+        getLineChartData();
+    }, []);
+    useEffect(() => {
+        getLineChartData();
+    }, [refresh]);
+
 
     const data = {
         series: [
             {
                 name: "저번 달",
-                data: [45000,5000,35000,42000,20030,4500,8500,105000]
+                data: lineData[0]?.data
             },
             {
                 name: "이번 달",
-                data: [5000,85000,30000,24000,5000,45000,85000,20000]
+                data: lineData[1]?.data
             },
         ],
         options: {
@@ -52,10 +67,26 @@ const LineChart = () => {
                         fontFamily: 0,
                     },
                 },
-                categories: ["1일","2일","3일","4일","5일","6일","7일","8일"],
+                categories: daysArray
             },
             colors:[`${cafe}`, `${eat}`],
         },
+    }
+
+    // api 1106
+    const getLineChartData = async () => {
+        const body = {
+            year: nowYear,
+            month: nowMonth
+        }
+        try{
+            const res = await authFetch.get(`/api/main/dailylist${objToQuery(body)}`);
+            if(res.data.result === "Y"){
+                setLineData(res.data.series);
+            }
+        }catch (err){
+            console.log(err);
+        }
     }
 
     return(
