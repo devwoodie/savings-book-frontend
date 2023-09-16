@@ -43,6 +43,10 @@ const Main = () => {
         }catch (err){
             if(err.response.data.code === 401){
                 toast.error("로그인이 필요합니다.");
+                navigate("/login");
+            }else if(err.response.data.code === 419){
+                toast.error("로그인이 필요합니다.");
+                navigate("/login");
             }
         }
     }
