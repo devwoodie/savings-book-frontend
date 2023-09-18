@@ -112,6 +112,7 @@ const StyledMenu = styled.div`
     .cancel-btn{
       font-size: 32px;
       text-align: right;
+      color: ${primary};
       svg{
         cursor: pointer;
       }
