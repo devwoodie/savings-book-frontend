@@ -24,11 +24,11 @@ const LineChart = ({refresh}) => {
         series: [
             {
                 name: "저번 달",
-                data: lineData[0]?.data
+                data: lineData[0]?.data || ["0","0","0","0","0","0"]
             },
             {
                 name: "이번 달",
-                data: lineData[1]?.data
+                data: lineData[1]?.data || ["0","0","0","0","0","0"]
             },
         ],
         options: {
