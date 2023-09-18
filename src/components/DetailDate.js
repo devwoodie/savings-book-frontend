@@ -184,9 +184,10 @@ const StyledWrapper = styled.div`
   box-shadow: 0 0 15px ${blurColor};
   .add-btn.other{
     cursor: pointer;
-    background-color: ${gray01};
+    background-color: ${primary};
+    opacity: .9;
     color: ${whiteBg};
-    padding: 8px 12px;
+    padding: 8px 18px;
     border-radius: 8px;
     font-size: 16px;
     position: absolute;
@@ -202,9 +203,9 @@ const StyledWrapper = styled.div`
     align-items: center;
     justify-content: space-between;
     margin-top: 12px;
-    font-size: 16px;
+    font-size: 18px;
     background-color: ${primary};
-    padding: 6px 20px;
+    padding: 8px 20px;
     color: ${whiteBg};
     .add-btn{
       cursor: pointer;

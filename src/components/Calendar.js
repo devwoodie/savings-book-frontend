@@ -108,25 +108,14 @@ const StyledWrapper = styled.div`
     font-size: 14px;
     padding-left: 5px;
   }
-  .fc-toolbar-title{
-    font-size: 24px;
-  }
-  .fc-button-group{
-    button{
-      background-color: ${blackBg};
-      border: none;
-      margin-left: 5px !important;
-      border-radius: 6px !important;
-      outline: none;
-    }
-  }
   .fc .fc-button-primary:disabled{
     background-color: ${whiteBg};
     color: ${blackBg};
   }
 
   .fc .fc-highlight{
-    background-color: #6A7DDF64;
+    background-color: ${primary};
+    opacity: .6;
   }
 `;
 
@@ -138,12 +127,14 @@ const StyledCalNav = styled.p`
   .month-wrap{
     font-family: "TheJamsil5Bold", sans-serif;
     font-size: 20px;
+    color: ${primary};
   }
   .button-wrap{
     button{
       font-size: 25px;
       margin-right: 5px;
       cursor: pointer;
+      color: ${primary};
       &:last-child{margin: 0;}
     }
   }

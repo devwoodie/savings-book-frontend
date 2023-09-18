@@ -41,6 +41,7 @@ const StyledHeader = styled.div`
     .user-icon{
       font-size: 28px;
       margin-right: 8px;
+      color: ${primary};
     }
   }
 `;
