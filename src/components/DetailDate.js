@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
 import styled from "styled-components";
 import {
+    blackBg,
     blurColor,
     cafe,
     eat,
@@ -39,7 +40,7 @@ const DetailDate = ({
     // modal
     const [isRegister, setIsRegister] = useState(false);
     const [isDelete, setIsDelete] = useState(false);
-
+    console.log(thisData)
     const dateArray = clickDate?.split('-');
     const year = dateArray[0];
     const month = dateArray[1];
@@ -122,9 +123,10 @@ const DetailDate = ({
                 <>
                     <span className="click-date">
                         <span>{clickDate && `${year}년 ${month}월 ${day}일`}</span>
-                        <button type="button" className="add-btn" onClick={handleRegisterBtn}>추가</button>
+                        {thisData?.length !== 0 && <button type="button" className="add-btn" onClick={handleRegisterBtn}>추가</button>}
                     </span>
                     <ul className="detail-list">
+                        {thisData?.length === 0 && <button type="button" className="add-btn other" onClick={handleRegisterBtn}>기록하기</button> }
                         {thisData && thisData?.map((item, key) => (
                             <li className="detail-cont" key={item?._id}>
                                 <div className="detail-top">
@@ -181,6 +183,17 @@ const StyledWrapper = styled.div`
   width: 100%;
   height: 370px;
   box-shadow: 0 0 15px ${blurColor};
+  .add-btn.other{
+    cursor: pointer;
+    background-color: ${gray01};
+    color: ${whiteBg};
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-size: 16px;
+    position: absolute;
+    left: 50%; top: 50%;
+    transform: translate(-50%, -50%);
+  }
   h2 {
     font-size: 18px;
     padding: 0 20px;
@@ -209,6 +222,7 @@ const StyledWrapper = styled.div`
     margin-top: 5px;
     overflow-y: scroll;
     padding: 0 20px;
+    position: relative;
     &::-webkit-scrollbar {
       width: 8px;
     }
