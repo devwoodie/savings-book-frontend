@@ -271,6 +271,7 @@ const StyledWrapper = styled.div`
         align-items: center;
         .content {
           font-size: 16px;
+          font-weight: bold;
         }
         .money {
           font-size: 16px;
