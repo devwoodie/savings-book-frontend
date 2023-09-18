@@ -47,7 +47,7 @@ const Menu = ({
                         }}>닉네임 변경</button>
                     </li>
                     <li>
-                        <button type="button">테마 변경</button>
+                        <button type="button">테마 변경 준비중입니다.</button>
                     </li>
                     <li>
                         <button type="button">메뉴 준비중입니다.</button>
