@@ -13,6 +13,7 @@ import {authFetch} from "../apis/axios";
 import toast from "react-hot-toast";
 import {GiHamburgerMenu} from "react-icons/gi";
 import Menu from "../components/modal/Menu";
+import {primary, whiteBg} from "../constants/color";
 
 const Main = () => {
 
@@ -59,7 +60,9 @@ const Main = () => {
 
     return(
         <StyledWrapper>
-            <GiHamburgerMenu className="menu-btn" onClick={() => setIsOpen(true)} />
+            <span className="menu-wrap" onClick={() => setIsOpen(true)}>
+                <GiHamburgerMenu className="menu-btn" />
+            </span>
             <Header nickname={nickname} />
             <div className="cont">
                 <div className="cont-left">
@@ -94,11 +97,20 @@ const StyledWrapper = styled.div`
   width: 1512px; height: 743px;
   padding: 20px;
   position: relative;
-  .menu-btn{
+  .menu-wrap{
     position: absolute;
-    right: 1.5%; top: -2%;
-    font-size: 24px;
+    right: 1.5%; top: -4%;
+    width: 40px; height: 40px;
+    background-color: ${primary};
+    border-radius: 8px;
     cursor: pointer;
+    .menu-btn{
+      position: absolute;
+      left: 50%; top: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 24px;
+      color: ${whiteBg}
+    } 
   }
   .cont{
     display: flex;
