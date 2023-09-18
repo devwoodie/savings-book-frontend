@@ -123,7 +123,7 @@ const Signup = () => {
                 </div>
                 <button disabled={!disabled} onClick={handleSubmit} className="login-btn" type="button">Signup</button>
             </form>
-            <p className="signup-text">Already a Member?&nbsp;&nbsp;<i onClick={() => navigate("/")}>Login Now</i></p>
+            <p className="signup-text">Already a Member?&nbsp;&nbsp;<i onClick={() => navigate("/login")}>Login Now</i></p>
         </StyledLogin>
     )
 }
@@ -135,6 +135,12 @@ const StyledLogin = styled.div`
   text-align: center;
   border-radius: 20px;
   box-shadow: 0 0 15px ${blurColor};
+  input:focus{
+    border: 1px solid ${primary};
+  }
+  .login-tit{
+    color: ${primary};
+  }
   .login-btn{
     cursor: pointer;
     display: block;

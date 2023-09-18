@@ -83,6 +83,12 @@ const StyledLogin = styled.div`
   text-align: center;
   border-radius: 20px;
   box-shadow: 0 0 15px ${blurColor};
+  input:focus{
+    border: 1px solid ${primary};
+  }
+  .login-tit{
+    color: ${primary};
+  }
   .forgot-text{
     text-align: left;
     font-size: 14px;

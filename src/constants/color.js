@@ -1,4 +1,7 @@
-export const primary = "#6a7ddf";
+const theme = localStorage.getItem("primary");
+
+// 6a7ddf
+export const primary = theme || "#6a7ddf";
 export const gray01 = "#8c8c8c";
 export const gray02 = "#c8c8c8";
 export const whiteBg = "#fff";

@@ -14,6 +14,7 @@ function App() {
     const nowYear = new Date().getFullYear();
     const nowMonth = new Date().getMonth() + 1;
     const formattedMonth = nowMonth < 10 ? `0${nowMonth}` : nowMonth.toString();
+    const primary = localStorage.getItem("primary");
     const isNotPc = useMediaQuery({
         query : "(max-width:1200px)"
     });
@@ -21,7 +22,11 @@ function App() {
     useEffect(() => {
         localStorage.setItem("nowYear", nowYear);
         localStorage.setItem("nowMonth", formattedMonth);
+        if(primary === null){
+            localStorage.setItem("primary", "#6a7ddf");
+        }
     }, []);
+
 
     return (
         <div className="App">

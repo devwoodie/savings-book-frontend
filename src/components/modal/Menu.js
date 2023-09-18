@@ -8,6 +8,7 @@ import {setToken} from "../../store/reducers/userSlice";
 import {useDispatch} from "react-redux";
 import NicknameChange from "./NicknameChange";
 import WithdrawalModal from "./WithdrawalModal";
+import ThemeChange from "./ThemeChange";
 
 const Menu = ({
     nickname,
@@ -18,6 +19,7 @@ const Menu = ({
     const navigate = useNavigate();
     const [isNickOpen, setIsNickOpen] = useState(false);
     const [isOutOpen, setIsOutOpen] = useState(false);
+    const [isThemeOpen, setIsThemeOpen] = useState(false);
     const dispatch = useDispatch();
 
     const handleLogout = () => {
@@ -47,7 +49,10 @@ const Menu = ({
                         }}>닉네임 변경</button>
                     </li>
                     <li>
-                        <button type="button">테마 변경 준비중입니다.</button>
+                        <button type="button" onClick={() => setIsThemeOpen(true)}>테마 변경</button>
+                    </li>
+                    <li>
+                        <button type="button">메뉴 준비중입니다.</button>
                     </li>
                     <li>
                         <button type="button">메뉴 준비중입니다.</button>
@@ -74,6 +79,12 @@ const Menu = ({
                 <WithdrawalModal
                     setIsOutOpen={setIsOutOpen}
                     setIsOpen={setIsOpen}
+                />
+            }
+            {/*테마 변경*/}
+            {isThemeOpen &&
+                <ThemeChange
+                    setIsThemeOpen={setIsThemeOpen}
                 />
             }
         </StyledMenu>
