@@ -54,12 +54,12 @@ const Menu = ({
                             <IoIosColorPalette />&nbsp;테마 변경
                         </button>
                     </li>
-                    <li>
-                        <button type="button">메뉴 준비중입니다.</button>
-                    </li>
-                    <li>
-                        <button type="button">메뉴 준비중입니다.</button>
-                    </li>
+                    {/*<li>*/}
+                    {/*    <button type="button">메뉴 준비중입니다.</button>*/}
+                    {/*</li>*/}
+                    {/*<li>*/}
+                    {/*    <button type="button">메뉴 준비중입니다.</button>*/}
+                    {/*</li>*/}
                     <li className="mt">
                         <button className="sm-btn" type="button" onClick={handleLogout}>로그아웃</button>
                         &nbsp;|&nbsp;
