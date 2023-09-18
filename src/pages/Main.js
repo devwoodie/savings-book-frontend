@@ -19,13 +19,16 @@ const Main = () => {
     const [clickDate, setClickDate] = useState("");
     const [nickname, setNickname] = useState("");
     const [refresh, setRefresh] = useState(false);
+    const [nickRefresh, setNickRefresh] = useState(false);
 
     useEffect(() => {
         if(!userToken){
             navigate("/login");
         }
-        getUserData();
     }, []);
+    useEffect(() => {
+        getUserData();
+    }, [nickRefresh]);
 
     // api 1004
     const getUserData = async () => {
@@ -35,25 +38,25 @@ const Main = () => {
                 setNickname(res.data.data.nick_name);
             }else if(res.data.code === 401){
                 // 유효하지 않은 토큰
-                navigate("/login");
+                return navigate("/login");
             }else if(res.data.code === 419){
                 // 만료된 토큰
-                navigate("/login");
+                return navigate("/login");
             }
         }catch (err){
             if(err.response.data.code === 401){
                 toast.error("로그인이 필요합니다.");
-                navigate("/login");
+                return navigate("/login");
             }else if(err.response.data.code === 419){
                 toast.error("로그인이 필요합니다.");
-                navigate("/login");
+                return navigate("/login");
             }
         }
     }
 
     return(
         <StyledWrapper>
-            <Header nickname={nickname} />
+            <Header nickname={nickname} setNickRefresh={setNickRefresh} />
             <div className="cont">
                 <div className="cont-left">
                     <Goal />

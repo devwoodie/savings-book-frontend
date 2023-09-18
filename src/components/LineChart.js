@@ -94,8 +94,8 @@ const LineChart = ({refresh}) => {
             <h2>금액 별 소비</h2>
             <Chart
                 type="area"
-                options={data.options}
-                series={data.series}
+                options={data?.options}
+                series={data?.series}
                 width="100%"
                 height="150px"
             />

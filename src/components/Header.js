@@ -2,14 +2,16 @@ import React, {useState} from "react";
 import styled from "styled-components";
 import {FaUserCircle} from "react-icons/fa";
 import {blackBg, blurColor, primary, whiteBg} from "../constants/color";
-import {userInfo} from "../constants/dummy";
 import {PiFinnTheHumanFill} from "react-icons/pi";
 import NicknameChange from "./modal/NicknameChange";
 import {useNavigate} from "react-router-dom";
 import {useDispatch} from "react-redux";
 import {setToken} from "../store/reducers/userSlice";
 
-const Header = ({nickname}) => {
+const Header = ({
+    nickname,
+    setNickRefresh
+}) => {
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -32,16 +34,25 @@ const Header = ({nickname}) => {
                 {nickname} 님
                 {hover &&
                     <div className="hover-wrap"
-                         onMouseOut={() => setHover(false)}
+                        onMouseOut={() => setHover(false)}
                     >
                         <PiFinnTheHumanFill className="hover-icon" />
                         <span className="hover-user">{nickname}</span>
-                        <button className="nickname-btn" type="button" onClick={() => setIsOpen(true)}>닉네임 변경</button>
+                        <button className="nickname-btn" type="button" onClick={() => {
+                            setIsOpen(true);
+                            setNickRefresh(false);
+                        }}>닉네임 변경</button>
                         <button className="nickname-btn" type="button" onClick={handleLogout}>로그아웃</button>
                     </div>
                 }
             </div>
-            {isOpen && <NicknameChange nick={nickname} setIsOpen={setIsOpen} />}
+            {isOpen &&
+                <NicknameChange
+                    nick={nickname}
+                    setIsOpen={setIsOpen}
+                    setNickRefresh={setNickRefresh}
+                />
+            }
         </StyledHeader>
     )
 }

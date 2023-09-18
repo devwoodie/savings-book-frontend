@@ -5,8 +5,9 @@ import toast from "react-hot-toast";
 import {authFetch} from "../../apis/axios";
 
 const NicknameChange = ({
-                            nick,
-                            setIsOpen
+    nick,
+    setIsOpen,
+    setNickRefresh
 }) => {
 
     let koEngNum = /^[ㄱ-ㅎ가-힣a-zA-Z0-9]+$/;
@@ -31,6 +32,7 @@ const NicknameChange = ({
             const res = await authFetch.patch(`/api/user/nickname`, body);
             if(res.data.result === "Y"){
                 toast.success("닉네임 변경이 완료되었습니다.");
+                setNickRefresh(true);
             }
         }catch (err){
             console.log(err);

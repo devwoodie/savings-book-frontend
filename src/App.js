@@ -2,7 +2,7 @@ import React, {useEffect} from "react";
 import "./style/style.css";
 import "./style/reset.css";
 import "./style/font.css";
-import {BrowserRouter, Route, Routes, useNavigate} from "react-router-dom";
+import {BrowserRouter, Route, Routes} from "react-router-dom";
 import toast, { Toaster } from 'react-hot-toast';
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
@@ -11,8 +11,6 @@ import {useSelector} from "react-redux";
 
 function App() {
 
-    const userData= useSelector((state) => state.userStore);
-    console.log(userData);
     const nowYear = new Date().getFullYear();
     const nowMonth = new Date().getMonth() + 1;
     const formattedMonth = nowMonth < 10 ? `0${nowMonth}` : nowMonth.toString();
