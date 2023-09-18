@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import styled from "styled-components";
 import {primary} from "../../constants/color";
-import {MdOutlineCancel} from "react-icons/md";
+import {MdDriveFileRenameOutline, MdOutlineCancel} from "react-icons/md";
 import {PiFinnTheHumanFill} from "react-icons/pi";
 import {useNavigate} from "react-router-dom";
 import {setToken} from "../../store/reducers/userSlice";
@@ -9,6 +9,7 @@ import {useDispatch} from "react-redux";
 import NicknameChange from "./NicknameChange";
 import WithdrawalModal from "./WithdrawalModal";
 import ThemeChange from "./ThemeChange";
+import {IoIosColorPalette} from "react-icons/io";
 
 const Menu = ({
     nickname,
@@ -46,10 +47,12 @@ const Menu = ({
                         <button className="nickname-btn" type="button" onClick={() => {
                             setIsNickOpen(true);
                             setNickRefresh(false);
-                        }}>닉네임 변경</button>
+                        }}><MdDriveFileRenameOutline />&nbsp;닉네임 변경</button>
                     </li>
                     <li>
-                        <button type="button" onClick={() => setIsThemeOpen(true)}>테마 변경</button>
+                        <button type="button" onClick={() => setIsThemeOpen(true)}>
+                            <IoIosColorPalette />&nbsp;테마 변경
+                        </button>
                     </li>
                     <li>
                         <button type="button">메뉴 준비중입니다.</button>
@@ -141,11 +144,17 @@ const StyledMenu = styled.div`
         button{
           font-size: 20px;
           cursor: pointer;
+          display: flex;
+          align-items: center;
+          justify-content: flex-start;
+          svg{opacity: .7;}
           &:hover{
             font-weight: bold;
+            svg{opacity: 1;}
           }
           &.sm-btn{
             font-size: 16px;
+            display: inline;
           }
         }
       }
