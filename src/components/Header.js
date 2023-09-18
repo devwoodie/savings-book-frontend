@@ -38,6 +38,7 @@ const StyledHeader = styled.div`
     font-family: "TheJamsil5Bold", sans-serif;
     color: ${blackBg};
     position: relative;
+    margin-right: 60px;
     .user-icon{
       font-size: 28px;
       margin-right: 8px;

@@ -99,7 +99,7 @@ const StyledWrapper = styled.div`
   position: relative;
   .menu-wrap{
     position: absolute;
-    right: 1.5%; top: -4%;
+    right: 2%; top: 4.5%;
     width: 40px; height: 40px;
     background-color: ${primary};
     border-radius: 8px;
