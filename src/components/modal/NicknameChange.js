@@ -6,8 +6,9 @@ import {authFetch} from "../../apis/axios";
 
 const NicknameChange = ({
     nick,
-    setIsOpen,
-    setNickRefresh
+    setIsNickOpen,
+    setNickRefresh,
+    setIsOpen
 }) => {
 
     let koEngNum = /^[ㄱ-ㅎ가-힣a-zA-Z0-9]+$/;
@@ -33,6 +34,7 @@ const NicknameChange = ({
             if(res.data.result === "Y"){
                 toast.success("닉네임 변경이 완료되었습니다.");
                 setNickRefresh(true);
+                setIsOpen(false);
             }
         }catch (err){
             console.log(err);
@@ -46,7 +48,7 @@ const NicknameChange = ({
             toast.error("기존 닉네임과 동일합니다.");
         }else{
             patchNickname();
-            setIsOpen(false);
+            setIsNickOpen(false);
         }
     }
 
@@ -64,7 +66,7 @@ const NicknameChange = ({
                 <small>* 8글자 이내 한글, 영어, 숫자만 입력</small>
                 <div className="modal-btn-wrap">
                     <button type="button" className="register-btn" onClick={handleChange}>변경</button>
-                    <button type="button" className="cancel-btn" onClick={() => setIsOpen(false)}>취소</button>
+                    <button type="button" className="cancel-btn" onClick={() => setIsNickOpen(false)}>취소</button>
                 </div>
             </div>
         </StyledModal>

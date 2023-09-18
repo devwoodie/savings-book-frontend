@@ -5,6 +5,7 @@ import toast from "react-hot-toast";
 import {useNavigate} from "react-router-dom";
 
 const WithdrawalModal = ({
+    setIsOutOpen,
     setIsOpen
 }) => {
 
@@ -21,12 +22,14 @@ const WithdrawalModal = ({
 
     const handleWithdrawal = () => {
         if(userAnswer === answer){
-            setIsOpen(false);
+            setIsOutOpen(false);
             toast.success("회원 탈퇴에 성공했습니다.");
+            setIsOpen(false);
             navigate("/login");
         }else{
-            setIsOpen(false);
+            setIsOutOpen(false);
             toast.error("회원 탈퇴에 실패했습니다.");
+            setIsOpen(false);
             navigate("/");
         }
     }
@@ -44,7 +47,7 @@ const WithdrawalModal = ({
                 />
                 <div className="modal-btn-wrap">
                     <button type="button" className="register-btn" onClick={handleWithdrawal}>탈퇴</button>
-                    <button type="button" className="cancel-btn" onClick={() => setIsOpen(false)}>취소</button>
+                    <button type="button" className="cancel-btn" onClick={() => setIsOutOpen(false)}>취소</button>
                 </div>
             </div>
         </StyledModal>
