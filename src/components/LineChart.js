@@ -82,7 +82,7 @@ const LineChart = ({refresh}) => {
         try{
             const res = await authFetch.get(`/api/main/dailylist${objToQuery(body)}`);
             if(res.data.result === "Y"){
-                setLineData(res.data.series);
+                setLineData(res.data.data);
             }
         }catch (err){
             console.log(err);

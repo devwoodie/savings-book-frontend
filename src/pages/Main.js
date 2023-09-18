@@ -11,6 +11,7 @@ import LineChart from "../components/LineChart";
 import {useNavigate} from "react-router-dom";
 import {authFetch} from "../apis/axios";
 import toast from "react-hot-toast";
+import WithdrawalModal from "../components/modal/WithdrawalModal";
 
 const Main = () => {
 
@@ -20,6 +21,7 @@ const Main = () => {
     const [nickname, setNickname] = useState("");
     const [refresh, setRefresh] = useState(false);
     const [nickRefresh, setNickRefresh] = useState(false);
+    const [isOpen, setIsOpen] = useState(false);
 
     useEffect(() => {
         if(!userToken){
@@ -29,6 +31,10 @@ const Main = () => {
     useEffect(() => {
         getUserData();
     }, [nickRefresh]);
+
+    const handleWithdrawal = () => {
+        setIsOpen(true);
+    }
 
     // api 1004
     const getUserData = async () => {
@@ -56,6 +62,7 @@ const Main = () => {
 
     return(
         <StyledWrapper>
+            <span className="withdrawal-btn" onClick={handleWithdrawal}>회원탈퇴</span>
             <Header nickname={nickname} setNickRefresh={setNickRefresh} />
             <div className="cont">
                 <div className="cont-left">
@@ -74,6 +81,12 @@ const Main = () => {
                     </div>
                 </div>
             </div>
+
+            {isOpen &&
+                <WithdrawalModal
+                    setIsOpen={setIsOpen}
+                />
+            }
         </StyledWrapper>
     )
 }
@@ -81,6 +94,14 @@ const Main = () => {
 const StyledWrapper = styled.div`
   width: 1512px; height: 743px;
   padding: 20px;
+  position: relative;
+  .withdrawal-btn{
+    position: absolute;
+    right: 2%; top: 0;
+    font-size: 14px;
+    cursor: pointer;
+    //color: #fff;
+  }
   .cont{
     display: flex;
     align-items: flex-start;

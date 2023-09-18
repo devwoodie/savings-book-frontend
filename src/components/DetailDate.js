@@ -40,7 +40,6 @@ const DetailDate = ({
     // modal
     const [isRegister, setIsRegister] = useState(false);
     const [isDelete, setIsDelete] = useState(false);
-    console.log(thisData)
     const dateArray = clickDate?.split('-');
     const year = dateArray[0];
     const month = dateArray[1];
