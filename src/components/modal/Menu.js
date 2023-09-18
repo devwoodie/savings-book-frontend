@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import styled from "styled-components";
-import {blackBg, gray02, primary, whiteBg} from "../../constants/color";
+import {primary} from "../../constants/color";
 import {MdOutlineCancel} from "react-icons/md";
 import {PiFinnTheHumanFill} from "react-icons/pi";
 import {useNavigate} from "react-router-dom";

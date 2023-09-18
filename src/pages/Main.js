@@ -11,7 +11,6 @@ import LineChart from "../components/LineChart";
 import {useNavigate} from "react-router-dom";
 import {authFetch} from "../apis/axios";
 import toast from "react-hot-toast";
-import WithdrawalModal from "../components/modal/WithdrawalModal";
 import {GiHamburgerMenu} from "react-icons/gi";
 import Menu from "../components/modal/Menu";
 

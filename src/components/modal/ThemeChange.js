@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import styled from "styled-components";
-import {blackBg, eat, gray01, gray02, income, primary, whiteBg} from "../../constants/color";
+import {gray01, primary, whiteBg} from "../../constants/color";
+import toast from "react-hot-toast";
 
 const ThemeChange = ({
     setIsThemeOpen
@@ -14,7 +15,10 @@ const ThemeChange = ({
         setTheme(selectedTheme);
         localStorage.setItem("primary", selectedTheme);
         setIsThemeOpen(false);
-        window.location.reload();
+        toast.loading("테마 적용 중입니다...");
+        setTimeout(() => {
+            window.location.reload();
+        }, 1500);
     };
 
     return(
