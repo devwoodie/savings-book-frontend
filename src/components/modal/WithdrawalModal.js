@@ -1,8 +1,9 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import styled from "styled-components";
 import {gray01, primary, whiteBg} from "../../constants/color";
 import toast from "react-hot-toast";
 import {useNavigate} from "react-router-dom";
+import {authFetch} from "../../apis/axios";
 
 const WithdrawalModal = ({
     setIsOutOpen,
@@ -14,10 +15,24 @@ const WithdrawalModal = ({
     const [answer, setAnswer] = useState("깜냥");
     const [userAnswer, setUserAnswer] = useState("");
 
+    useEffect(() => {
+        getQAData();
+    }, []);
+
     const handleAnswer = (event) => {
         if(event.target.id === "answer"){
             setUserAnswer(event.target.value);
         }
+    }
+
+    // api 1006
+    const getQAData = async () => {
+        try{
+            const res = await authFetch.get(`/api/user/randomquiz`);
+            console.log(res.data)
+        }catch (err){
+            console.log(err);
+        };
     }
 
     const handleWithdrawal = () => {

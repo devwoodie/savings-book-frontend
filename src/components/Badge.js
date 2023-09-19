@@ -1,34 +1,52 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import styled from "styled-components";
 import {blurColor, cafe, income, pleasure, whiteBg} from "../constants/color";
 import {GiTrophy} from "react-icons/gi";
+import {authFetch} from "../apis/axios";
 
 const Badge = () => {
-
+    useEffect(() => {
+        getBadge();
+    }, []);
     const data = {month_1: 0, month_3: 0, month_6: 0, month_12: 0};
+    const [badgeData, setBadgeData] = useState({});
+
+    // api 1201
+    const getBadge = async () => {
+        try{
+            const res = await authFetch.get(`/api/main/badge`);
+            if(res.data.result === "Y"){
+                setBadgeData(res.data.data);
+            }
+        }catch (err){
+            console.log(err);
+        }
+    }
 
     return(
         <StyledWrapper>
             {/*<p className="info-text">뱃지는 아직 준비중이에요.</p>*/}
             <h2>목표 달성 뱃지</h2>
-            <ul className="badge-list">
-                <li className={data.month_1 === 1 ? "y" : ""}>
-                    <GiTrophy className="trophy" />
-                    <span>1달 목표 달성</span>
-                </li>
-                <li className={data.month_3 === 1 ? "y" : ""}>
-                    <GiTrophy className="trophy" />
-                    <span>3달 목표 달성</span>
-                </li>
-                <li className={data.month_6 === 1 ? "y" : ""}>
-                    <GiTrophy className="trophy" />
-                    <span>6달 목표 달성</span>
-                </li>
-                <li className={data.month_12 === 1 ? "y" : ""}>
-                    <GiTrophy className="trophy" />
-                    <span>12달 목표 달성</span>
-                </li>
-            </ul>
+            {badgeData &&
+                <ul className="badge-list">
+                    <li className={badgeData?.month_1 === 1 ? "y" : ""}>
+                        <GiTrophy className="trophy" />
+                        <span>1달 목표 달성</span>
+                    </li>
+                    <li className={badgeData?.month_3 === 1 ? "y" : ""}>
+                        <GiTrophy className="trophy" />
+                        <span>3달 목표 달성</span>
+                    </li>
+                    <li className={badgeData?.month_6 === 1 ? "y" : ""}>
+                        <GiTrophy className="trophy" />
+                        <span>6달 목표 달성</span>
+                    </li>
+                    <li className={badgeData?.month_12 === 1 ? "y" : ""}>
+                        <GiTrophy className="trophy" />
+                        <span>12달 목표 달성</span>
+                    </li>
+                </ul>
+            }
         </StyledWrapper>
     )
 }
