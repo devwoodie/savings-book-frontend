@@ -5,11 +5,12 @@ import {GiTrophy} from "react-icons/gi";
 import {authFetch} from "../apis/axios";
 
 const Badge = () => {
+
+    const [badgeData, setBadgeData] = useState({});
+
     useEffect(() => {
         getBadge();
     }, []);
-    const data = {month_1: 0, month_3: 0, month_6: 0, month_12: 0};
-    const [badgeData, setBadgeData] = useState({});
 
     // api 1201
     const getBadge = async () => {

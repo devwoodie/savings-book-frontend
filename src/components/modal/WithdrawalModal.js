@@ -11,8 +11,8 @@ const WithdrawalModal = ({
 }) => {
 
     const navigate = useNavigate();
-    const [question, setQuestion] = useState("국립국어원에서는 ‘스펙업’을 대신할 우리말 순화어로 ‘이것 쌓기’를 선정했습니다. 이것은 ‘일정한 자격이나 조건을 갖춘다’는 뜻의 우리말과 ‘헤아리다’를 뜻하는 한자어의 합성어인데요. 스스로 일을 해낼 만한 능력을 뜻하는 이것은 무엇일까요?");
-    const [answer, setAnswer] = useState("깜냥");
+    const [question, setQuestion] = useState("");
+    const [answer, setAnswer] = useState("");
     const [userAnswer, setUserAnswer] = useState("");
 
     useEffect(() => {
@@ -25,27 +25,43 @@ const WithdrawalModal = ({
         }
     }
 
-    // api 1006
-    const getQAData = async () => {
-        try{
-            const res = await authFetch.get(`/api/user/randomquiz`);
-            console.log(res.data)
-        }catch (err){
-            console.log(err);
-        };
-    }
-
     const handleWithdrawal = () => {
         if(userAnswer === answer){
-            setIsOutOpen(false);
-            toast.success("회원 탈퇴에 성공했습니다.");
-            setIsOpen(false);
-            navigate("/login");
+            delUser();
         }else{
             setIsOutOpen(false);
             toast.error("회원 탈퇴에 실패했습니다.");
             setIsOpen(false);
             navigate("/");
+        }
+    }
+
+
+    // api 1006
+    const getQAData = async () => {
+        try{
+            const res = await authFetch.get(`/api/user/randomquiz`);
+            if(res.data.result === "Y"){
+                console.log(res.data.data.answer);
+                setQuestion(res.data.data.question);
+                setAnswer(res.data.data.answer);
+            }
+        }catch (err){
+            console.log(err);
+        }
+    }
+    // api 1005
+    const delUser = async () => {
+        try{
+            const res = await authFetch.delete(`/api/user/deleteuser`);
+            if(res.data.result === "Y"){
+                setIsOutOpen(false);
+                toast.success("회원 탈퇴에 성공했습니다.");
+                setIsOpen(false);
+                navigate("/login");
+            }
+        }catch (err){
+            console.log(err)
         }
     }
 
