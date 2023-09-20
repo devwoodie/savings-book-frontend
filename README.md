@@ -1,6 +1,6 @@
 ## 💡 수입/지출 기록하는 가계부
 
-[🔗 Site](https://savings-book-frontend.vercel.app/) <br/>
+[🔗 Site Link](https://savings-book-frontend.vercel.app/) <br/>
 
 `Tect Stack`
 - React
@@ -13,7 +13,7 @@
 - apex chart
 - localstorage
 
-### 화면 구성
+### 📄 화면 구성
 - 로그인/회원가입
   - 닉네임 등록/수정
 - 이번 달 수입/지출 총 금액
