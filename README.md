@@ -1,7 +1,5 @@
 ## 💡 수입/지출 기록하는 가계부
 
-[🔗 Site Link](https://savings-book-frontend.vercel.app/) <br/>
-
 `Tect Stack`
 - React
     - redux-toolkit
